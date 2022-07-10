@@ -26,4 +26,5 @@
 inline FILE* g_stdin{ };
 inline FILE* g_stdout{ };
 
+
 #endif // HOTWHEELS_CSGO_EXTERNAL_ENTRY_HPP
