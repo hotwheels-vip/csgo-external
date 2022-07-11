@@ -8,14 +8,15 @@
 #include <Windows.h>
 #include <iostream>
 
+#include "../entry.hpp"
+
 namespace cheat
 {
 	inline bool requested_shutdown{ };
 
-	inline HMODULE module_handle{ };
+	inline hmodule module_handle{ };
 
 	void init( );
-	void shutdown( );
 } // namespace cheat
 
 #endif // HOTWHEELS_CSGO_EXTERNAL_CHEAT_HPP

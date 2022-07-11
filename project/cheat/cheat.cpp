@@ -21,10 +21,10 @@ void cheat::init( )
 {
 	g_config.init( );
 
-	HANDLE process_id{ };
+	handle process_id{ };
 
 	while ( !process_id ) {
-		GetWindowThreadProcessId( FindWindow( "Valve001", nullptr ), reinterpret_cast< LPDWORD >( &process_id ) );
+		get_window_thread_process_id( find_window( "Valve001", nullptr ), reinterpret_cast< lpdword >( &process_id ) );
 
 		if ( process_id )
 			break;
@@ -34,7 +34,7 @@ void cheat::init( )
 
 	std::this_thread::sleep_for( std::chrono::seconds( 1 ) );
 
-	driver::init( reinterpret_cast< HANDLE >( process_id ) );
+	driver::init( reinterpret_cast< handle >( process_id ) );
 
 	// Fuck off operations
 	create_thread( overlay::init );
@@ -42,8 +42,8 @@ void cheat::init( )
 	create_thread( aimbot::routine );
 	create_thread( changer::routine );
 
-	while ( !GetAsyncKeyState( VK_DELETE ) ) {
-		Sleep( 10 );
+	while ( !get_async_key_state( VK_DELETE ) ) {
+		std::this_thread::sleep_for( std::chrono::milliseconds( 10 ) );
 	}
 
 	requested_shutdown = true;
@@ -52,5 +52,3 @@ void cheat::init( )
 
 	free_library_and_exit_thread( cheat::module_handle, 0 );
 }
-
-void cheat::shutdown( ) { }

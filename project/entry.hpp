@@ -8,6 +8,9 @@
 #include <iostream>
 
 #define hinstance HINSTANCE
+#define hmodule   HMODULE
+#define handle    HANDLE
+#define lpdword   LPDWORD
 
 #define dll_main                         DllMain
 #define create_thread( function )        CreateThread( 0, 0, ( LPTHREAD_START_ROUTINE )function, 0, 0, 0 )
@@ -22,9 +25,8 @@
 #define free_console                     FreeConsole
 #define disable_thread_library_calls     DisableThreadLibraryCalls
 #define win_api                          WINAPI
-
-inline FILE* g_stdin{ };
-inline FILE* g_stdout{ };
-
+#define get_window_thread_process_id     GetWindowThreadProcessId
+#define find_window                      FindWindowA
+#define get_async_key_state              GetAsyncKeyState
 
 #endif // HOTWHEELS_CSGO_EXTERNAL_ENTRY_HPP
