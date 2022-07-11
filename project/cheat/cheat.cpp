@@ -9,7 +9,6 @@
 #include "helpers/driver/driver.hpp"
 
 #include "features/aimbot/aimbot.hpp"
-#include "features/changer/changer.hpp"
 #include "features/movement/movement.hpp"
 
 #include "../entry.hpp"
@@ -40,7 +39,6 @@ void cheat::init( )
 	create_thread( overlay::init );
 	create_thread( movement::routine );
 	create_thread( aimbot::routine );
-	create_thread( changer::routine );
 
 	while ( !get_async_key_state( VK_DELETE ) ) {
 		std::this_thread::sleep_for( std::chrono::milliseconds( 10 ) );

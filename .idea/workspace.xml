@@ -18,12 +18,10 @@
     </configurations>
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="ea2d99d1-c026-4e0c-8b55-b2f98d6da3ed" name="Changes" comment="Test commit 3">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+    <list default="true" id="ea2d99d1-c026-4e0c-8b55-b2f98d6da3ed" name="Changes" comment="Started work on converting winapi to snake-case">
       <change beforePath="$PROJECT_DIR$/project/cheat/cheat.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/project/cheat/cheat.cpp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/project/cheat/cheat.hpp" beforeDir="false" afterPath="$PROJECT_DIR$/project/cheat/cheat.hpp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/project/entry.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/project/entry.cpp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/project/entry.hpp" beforeDir="false" afterPath="$PROJECT_DIR$/project/entry.hpp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/project/cheat/features/changer/changer.cpp" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/project/cheat/features/changer/changer.hpp" beforeDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -84,6 +82,11 @@
     </key>
   </component>
   <component name="RunManager">
+    <configuration default="true" type="CLionExternalRunConfiguration" factoryName="Application" REDIRECT_INPUT="false" ELEVATE="false" USE_EXTERNAL_CONSOLE="false" PASS_PARENT_ENVS_2="true">
+      <method v="2">
+        <option name="CLION.EXTERNAL.BUILD" enabled="true" />
+      </method>
+    </configuration>
     <configuration name="hotwheels_csgo_external" type="CMakeRunConfiguration" factoryName="Application" REDIRECT_INPUT="false" ELEVATE="true" USE_EXTERNAL_CONSOLE="false" PASS_PARENT_ENVS_2="true" PROJECT_NAME="hotwheels_csgo_external" TARGET_NAME="hotwheels_csgo_external" CONFIG_NAME="Debug-Visual Studio x64" RUN_TARGET_PROJECT_NAME="hotwheels_csgo_external" RUN_TARGET_NAME="hotwheels_csgo_external">
       <method v="2">
         <option name="com.jetbrains.cidr.execution.CidrBuildBeforeRunTaskProvider$BuildBeforeRunTask" enabled="true" />
@@ -147,7 +150,7 @@
       <workItem from="1657464529894" duration="2802000" />
       <workItem from="1657517194629" duration="43000" />
       <workItem from="1657519581305" duration="631000" />
-      <workItem from="1657526776871" duration="771000" />
+      <workItem from="1657526776871" duration="954000" />
     </task>
     <task id="LOCAL-00001" summary="Big push">
       <created>1656709532508</created>
@@ -198,7 +201,14 @@
       <option name="project" value="LOCAL" />
       <updated>1657469922313</updated>
     </task>
-    <option name="localTasksCounter" value="8" />
+    <task id="LOCAL-00008" summary="Started work on converting winapi to snake-case">
+      <created>1657527599083</created>
+      <option name="number" value="00008" />
+      <option name="presentableId" value="LOCAL-00008" />
+      <option name="project" value="LOCAL" />
+      <updated>1657527599083</updated>
+    </task>
+    <option name="localTasksCounter" value="9" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -224,7 +234,8 @@
     <MESSAGE value="Test commit" />
     <MESSAGE value="Test commit 2" />
     <MESSAGE value="Test commit 3" />
-    <option name="LAST_COMMIT_MESSAGE" value="Test commit 3" />
+    <MESSAGE value="Started work on converting winapi to snake-case" />
+    <option name="LAST_COMMIT_MESSAGE" value="Started work on converting winapi to snake-case" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
