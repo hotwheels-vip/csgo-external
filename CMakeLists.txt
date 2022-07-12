@@ -24,10 +24,10 @@ add_library(${PROJECT_NAME} SHARED ${SRC})
 
 find_library(D3D11_LIB d3d11.lib PATHS "${PROJECT_SOURCE_DIR}/project/dependencies/directx")
 find_library(DXGI_LIB dxgi.lib PATHS "${PROJECT_SOURCE_DIR}/project/dependencies/directx")
-find_library(FREETYPE_LIBR freetype.lib PATHS "${PROJECT_SOURCE_DIR}/project/dependencies/freetype")
+find_library(FREETYPE_LIB freetype.lib PATHS "${PROJECT_SOURCE_DIR}/project/dependencies/freetype")
 
 target_link_libraries(${PROJECT_NAME} "${D3D11_LIB}" "${DXGI_LIB}")
-target_link_libraries(${PROJECT_NAME} "${FREETYPE_LIBR}")
+target_link_libraries(${PROJECT_NAME} "${FREETYPE_LIB}")
 
 target_link_directories(${PROJECT_NAME} PRIVATE "${PROJECT_SOURCE_DIR}/project/dependencies/freetype")
 

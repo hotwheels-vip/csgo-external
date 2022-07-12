@@ -18,8 +18,7 @@
     </configurations>
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="ea2d99d1-c026-4e0c-8b55-b2f98d6da3ed" name="Changes" comment="Added FMT dependency &amp; better console logging. This will use the console's default open output handle.">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+    <list default="true" id="ea2d99d1-c026-4e0c-8b55-b2f98d6da3ed" name="Changes" comment="Now using bundled d3d11.lib &amp; dxgi.lib">
       <change beforePath="$PROJECT_DIR$/CMakeLists.txt" beforeDir="false" afterPath="$PROJECT_DIR$/CMakeLists.txt" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -152,7 +151,7 @@
       <workItem from="1657519581305" duration="631000" />
       <workItem from="1657526776871" duration="1922000" />
       <workItem from="1657535784697" duration="9323000" />
-      <workItem from="1657636829995" duration="177000" />
+      <workItem from="1657636829995" duration="360000" />
     </task>
     <task id="LOCAL-00001" summary="Big push">
       <created>1656709532508</created>
@@ -231,7 +230,14 @@
       <option name="project" value="LOCAL" />
       <updated>1657633892342</updated>
     </task>
-    <option name="localTasksCounter" value="12" />
+    <task id="LOCAL-00012" summary="Now using bundled d3d11.lib &amp; dxgi.lib">
+      <created>1657637056512</created>
+      <option name="number" value="00012" />
+      <option name="presentableId" value="LOCAL-00012" />
+      <option name="project" value="LOCAL" />
+      <updated>1657637056512</updated>
+    </task>
+    <option name="localTasksCounter" value="13" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -261,7 +267,8 @@
     <MESSAGE value="Removed skin-changer because it removes the point of an external" />
     <MESSAGE value="Changed how the drivers binary is stored &amp; updated to 7/11 driver build.&#10;Added RCS clamping for obvious reasons." />
     <MESSAGE value="Added FMT dependency &amp; better console logging. This will use the console's default open output handle." />
-    <option name="LAST_COMMIT_MESSAGE" value="Added FMT dependency &amp; better console logging. This will use the console's default open output handle." />
+    <MESSAGE value="Now using bundled d3d11.lib &amp; dxgi.lib" />
+    <option name="LAST_COMMIT_MESSAGE" value="Now using bundled d3d11.lib &amp; dxgi.lib" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
