@@ -34,7 +34,7 @@ void aimbot::routine( )
 		sdk::vector adjusted_angles = { aim_punch.x * ( *g_config.find< float >( "aimbot_rcs_y" ) / 100.f ),
 			                            aim_punch.y * ( *g_config.find< float >( "aimbot_rcs_x" ) / 100.f ) };
 
-		if ( GetAsyncKeyState( VK_LBUTTON ) && GetForegroundWindow( ) == window_handle) {
+		if ( GetAsyncKeyState( VK_LBUTTON ) && GetForegroundWindow( ) == window_handle ) {
 			sdk::vector random_angles = { static_cast< float >( rand( ) * 1000 % 10 ) / 10, static_cast< float >( rand( ) * 1000 % 10 ) / 10.f };
 
 			if ( *g_config.find< bool >( "aimbot_rcs" ) ) {
@@ -43,7 +43,7 @@ void aimbot::routine( )
 
 				auto lerped_angle = view_angles.lerp( corrected_angle, -( *g_config.find< float >( "aimbot_rcs_smooth" ) / 100.f ) + 1.f );
 
-				driver::write< sdk::vector >( reinterpret_cast< PVOID >( client_state + offsets::view_angles ), lerped_angle );
+				driver::write< sdk::vector >( reinterpret_cast< PVOID >( client_state + offsets::view_angles ), lerped_angle.clamped( ) );
 			}
 		}
 

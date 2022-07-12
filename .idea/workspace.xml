@@ -18,10 +18,13 @@
     </configurations>
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="ea2d99d1-c026-4e0c-8b55-b2f98d6da3ed" name="Changes" comment="Started work on converting winapi to snake-case">
-      <change beforePath="$PROJECT_DIR$/project/cheat/cheat.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/project/cheat/cheat.cpp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/project/cheat/features/changer/changer.cpp" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/project/cheat/features/changer/changer.hpp" beforeDir="false" />
+    <list default="true" id="ea2d99d1-c026-4e0c-8b55-b2f98d6da3ed" name="Changes" comment="Removed skin-changer because it removes the point of an external">
+      <change afterPath="$PROJECT_DIR$/project/cheat/helpers/driver/driver_binary.hpp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/project/cheat/features/aimbot/aimbot.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/project/cheat/features/aimbot/aimbot.cpp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/project/cheat/features/overlay/overlay.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/project/cheat/features/overlay/overlay.cpp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/project/cheat/helpers/driver/driver.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/project/cheat/helpers/driver/driver.cpp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/project/cheat/sdk/structs/vector.hpp" beforeDir="false" afterPath="$PROJECT_DIR$/project/cheat/sdk/structs/vector.hpp" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -60,31 +63,31 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent">{
-  &quot;keyToString&quot;: {
-    &quot;ASKED_ADD_EXTERNAL_FILES&quot;: &quot;true&quot;,
-    &quot;ASKED_SHARE_PROJECT_CONFIGURATION_FILES&quot;: &quot;true&quot;,
-    &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
-    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
-    &quot;RunOnceActivity.cidr.known.project.marker&quot;: &quot;true&quot;,
-    &quot;WebServerToolWindowFactoryState&quot;: &quot;false&quot;,
-    &quot;cf.advertisement.text.overridden&quot;: &quot;true&quot;,
-    &quot;cf.first.check.clang-format&quot;: &quot;false&quot;,
-    &quot;cidr.known.project.marker&quot;: &quot;true&quot;,
-    &quot;last_opened_file_path&quot;: &quot;C:/Users/liga/CLionProjects/hotwheels.vip&quot;,
-    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
-    &quot;settings.editor.selected.configurable&quot;: &quot;preferences.pluginManager&quot;
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "ASKED_ADD_EXTERNAL_FILES": "true",
+    "ASKED_SHARE_PROJECT_CONFIGURATION_FILES": "true",
+    "RunOnceActivity.OpenProjectViewOnStart": "true",
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "RunOnceActivity.cidr.known.project.marker": "true",
+    "WebServerToolWindowFactoryState": "false",
+    "cf.advertisement.text.overridden": "true",
+    "cf.first.check.clang-format": "false",
+    "cidr.known.project.marker": "true",
+    "last_opened_file_path": "C:/Users/liga/CLionProjects/hotwheels.vip",
+    "nodejs_package_manager_path": "npm",
+    "settings.editor.selected.configurable": "CPPToolchains"
   }
-}</component>
+}]]></component>
   <component name="RecentsManager">
     <key name="MoveFile.RECENT_KEYS">
       <recent name="C:\Users\liga\CLionProjects\hotwheels.vip\project\dependencies\imgui" />
     </key>
   </component>
   <component name="RunManager">
-    <configuration default="true" type="CLionExternalRunConfiguration" factoryName="Application" REDIRECT_INPUT="false" ELEVATE="false" USE_EXTERNAL_CONSOLE="false" PASS_PARENT_ENVS_2="true">
+    <configuration default="true" type="CMakeRunConfiguration" factoryName="Application" REDIRECT_INPUT="false" ELEVATE="false" USE_EXTERNAL_CONSOLE="false" PASS_PARENT_ENVS_2="true">
       <method v="2">
-        <option name="CLION.EXTERNAL.BUILD" enabled="true" />
+        <option name="com.jetbrains.cidr.execution.CidrBuildBeforeRunTaskProvider$BuildBeforeRunTask" enabled="true" />
       </method>
     </configuration>
     <configuration name="hotwheels_csgo_external" type="CMakeRunConfiguration" factoryName="Application" REDIRECT_INPUT="false" ELEVATE="true" USE_EXTERNAL_CONSOLE="false" PASS_PARENT_ENVS_2="true" PROJECT_NAME="hotwheels_csgo_external" TARGET_NAME="hotwheels_csgo_external" CONFIG_NAME="Debug-Visual Studio x64" RUN_TARGET_PROJECT_NAME="hotwheels_csgo_external" RUN_TARGET_NAME="hotwheels_csgo_external">
@@ -150,7 +153,8 @@
       <workItem from="1657464529894" duration="2802000" />
       <workItem from="1657517194629" duration="43000" />
       <workItem from="1657519581305" duration="631000" />
-      <workItem from="1657526776871" duration="954000" />
+      <workItem from="1657526776871" duration="1922000" />
+      <workItem from="1657535784697" duration="4081000" />
     </task>
     <task id="LOCAL-00001" summary="Big push">
       <created>1656709532508</created>
@@ -208,7 +212,14 @@
       <option name="project" value="LOCAL" />
       <updated>1657527599083</updated>
     </task>
-    <option name="localTasksCounter" value="9" />
+    <task id="LOCAL-00009" summary="Removed skin-changer because it removes the point of an external">
+      <created>1657527763777</created>
+      <option name="number" value="00009" />
+      <option name="presentableId" value="LOCAL-00009" />
+      <option name="project" value="LOCAL" />
+      <updated>1657527763777</updated>
+    </task>
+    <option name="localTasksCounter" value="10" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -235,7 +246,8 @@
     <MESSAGE value="Test commit 2" />
     <MESSAGE value="Test commit 3" />
     <MESSAGE value="Started work on converting winapi to snake-case" />
-    <option name="LAST_COMMIT_MESSAGE" value="Started work on converting winapi to snake-case" />
+    <MESSAGE value="Removed skin-changer because it removes the point of an external" />
+    <option name="LAST_COMMIT_MESSAGE" value="Removed skin-changer because it removes the point of an external" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
