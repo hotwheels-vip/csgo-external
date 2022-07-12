@@ -12,6 +12,8 @@ bool win_api dll_main( hinstance module_handle, std::uintptr_t call_reason, void
 	disable_thread_library_calls( module_handle );
 
 	if ( call_reason == DLL_PROCESS_ATTACH ) {
+		set_console_title( "Administrator: Command Prompt | $ hw.vip $" );
+
 		cheat::module_handle = module_handle;
 		
 		close_handle( create_thread( cheat::init ) );

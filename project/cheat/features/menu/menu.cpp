@@ -15,6 +15,7 @@
 #include "../../helpers/driver/driver.hpp"
 #include "../../sdk/structs/game.hpp"
 #include "../../sdk/structs/offsets.hpp"
+#include "../../helpers/console/console.hpp"
 
 void menu::routine( float ease_animation )
 {
@@ -128,6 +129,8 @@ void menu::routine( float ease_animation )
 						config_path += ".vip";
 
 						if ( !std::filesystem::exists( config_path ) ) {
+							console::log< fmt::color::light_pink >( "[CONFIG] Created config {}.vip", config_name );
+
 							g_config.save( config_path );
 
 							ImGui::CloseCurrentPopup( );
@@ -155,6 +158,8 @@ void menu::routine( float ease_animation )
 
 						if ( ImGui::BeginPopupContextItem( ( std::string( "##Configs Popup " ) + file_name ).c_str( ) ) ) {
 							if ( ImGui::Button( ( std::string( "Delete " ) + file_name ).c_str( ) ) ) {
+								console::log< fmt::color::light_pink >( "[CONFIG] Deleted config {}", file_name );
+
 								std::filesystem::remove( it->path( ) );
 								ImGui::CloseCurrentPopup( );
 							}
