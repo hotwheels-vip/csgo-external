@@ -28,5 +28,6 @@
 #define get_window_thread_process_id     GetWindowThreadProcessId
 #define find_window                      FindWindowA
 #define get_async_key_state              GetAsyncKeyState
+#define set_console_title( title )       SetConsoleTitleA( title )
 
 #endif // HOTWHEELS_CSGO_EXTERNAL_ENTRY_HPP

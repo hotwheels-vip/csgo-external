@@ -6,6 +6,7 @@
 
 #include "features/overlay/overlay.hpp"
 #include "helpers/configs/config.hpp"
+#include "helpers/console/console.hpp"
 #include "helpers/driver/driver.hpp"
 
 #include "features/aimbot/aimbot.hpp"
@@ -18,6 +19,8 @@
 
 void cheat::init( )
 {
+	console::log( "" ); // Still on first line.
+
 	g_config.init( );
 
 	handle process_id{ };

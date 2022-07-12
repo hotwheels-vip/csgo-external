@@ -3,6 +3,7 @@
 //
 
 #include "config.hpp"
+#include "../console/console.hpp"
 
 #include <fstream>
 
@@ -41,6 +42,10 @@ void config::impl::save( std::string path )
 	stream << std::setw( 4 ) << reader << std::endl;
 
 	stream.close( );
+
+	std::string file_name = path.substr( path.find_last_of( "\\/" ) + 1 );
+
+	console::log< fmt::color::light_pink >( "[CONFIG] Saved config to {}", file_name );
 }
 
 void config::impl::load( std::string path )
@@ -91,6 +96,10 @@ void config::impl::load( std::string path )
 			break;
 		}
 	}
+
+	std::string file_name = path.substr( path.find_last_of( "\\/" ) + 1 );
+
+	console::log< fmt::color::light_pink >( "[CONFIG] Loaded config from {}", file_name );
 }
 
 void config::impl::insert( std::uint32_t hash, option _option )

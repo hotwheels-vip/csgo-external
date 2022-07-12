@@ -18,13 +18,29 @@
     </configurations>
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="ea2d99d1-c026-4e0c-8b55-b2f98d6da3ed" name="Changes" comment="Removed skin-changer because it removes the point of an external">
-      <change afterPath="$PROJECT_DIR$/project/cheat/helpers/driver/driver_binary.hpp" afterDir="false" />
+    <list default="true" id="ea2d99d1-c026-4e0c-8b55-b2f98d6da3ed" name="Changes" comment="Changed how the drivers binary is stored &amp; updated to 7/11 driver build.&#10;Added RCS clamping for obvious reasons.">
+      <change afterPath="$PROJECT_DIR$/project/cheat/helpers/console/console.cpp" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/project/cheat/helpers/console/console.hpp" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/project/dependencies/fmt/args.h" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/project/dependencies/fmt/chrono.h" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/project/dependencies/fmt/color.h" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/project/dependencies/fmt/compile.h" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/project/dependencies/fmt/core.h" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/project/dependencies/fmt/format-inl.h" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/project/dependencies/fmt/format.h" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/project/dependencies/fmt/os.h" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/project/dependencies/fmt/ostream.h" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/project/dependencies/fmt/printf.h" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/project/dependencies/fmt/ranges.h" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/project/dependencies/fmt/std.h" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/project/dependencies/fmt/xchar.h" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/project/cheat/features/aimbot/aimbot.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/project/cheat/features/aimbot/aimbot.cpp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/project/cheat/features/overlay/overlay.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/project/cheat/features/overlay/overlay.cpp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/project/cheat/cheat.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/project/cheat/cheat.cpp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/project/cheat/features/menu/menu.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/project/cheat/features/menu/menu.cpp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/project/cheat/helpers/configs/config.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/project/cheat/helpers/configs/config.cpp" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/project/cheat/helpers/driver/driver.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/project/cheat/helpers/driver/driver.cpp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/project/cheat/sdk/structs/vector.hpp" beforeDir="false" afterPath="$PROJECT_DIR$/project/cheat/sdk/structs/vector.hpp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/project/entry.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/project/entry.cpp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/project/entry.hpp" beforeDir="false" afterPath="$PROJECT_DIR$/project/entry.hpp" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -154,7 +170,7 @@
       <workItem from="1657517194629" duration="43000" />
       <workItem from="1657519581305" duration="631000" />
       <workItem from="1657526776871" duration="1922000" />
-      <workItem from="1657535784697" duration="4081000" />
+      <workItem from="1657535784697" duration="7159000" />
     </task>
     <task id="LOCAL-00001" summary="Big push">
       <created>1656709532508</created>
@@ -219,7 +235,14 @@
       <option name="project" value="LOCAL" />
       <updated>1657527763777</updated>
     </task>
-    <option name="localTasksCounter" value="10" />
+    <task id="LOCAL-00010" summary="Changed how the drivers binary is stored &amp; updated to 7/11 driver build.&#10;Added RCS clamping for obvious reasons.">
+      <created>1657606242128</created>
+      <option name="number" value="00010" />
+      <option name="presentableId" value="LOCAL-00010" />
+      <option name="project" value="LOCAL" />
+      <updated>1657606242128</updated>
+    </task>
+    <option name="localTasksCounter" value="11" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -247,7 +270,8 @@
     <MESSAGE value="Test commit 3" />
     <MESSAGE value="Started work on converting winapi to snake-case" />
     <MESSAGE value="Removed skin-changer because it removes the point of an external" />
-    <option name="LAST_COMMIT_MESSAGE" value="Removed skin-changer because it removes the point of an external" />
+    <MESSAGE value="Changed how the drivers binary is stored &amp; updated to 7/11 driver build.&#10;Added RCS clamping for obvious reasons." />
+    <option name="LAST_COMMIT_MESSAGE" value="Changed how the drivers binary is stored &amp; updated to 7/11 driver build.&#10;Added RCS clamping for obvious reasons." />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
