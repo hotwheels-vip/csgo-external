@@ -124,6 +124,8 @@ void overlay::init( )
 	ImVec4* colors = ImGui::GetStyle( ).Colors;
 	ImFontConfig verdana_font_config{ };
 
+
+
 	static const ImWchar ranges[] = {
 		0x0020, 0x00FF, // Basic Latin + Latin Supplement
 		0x0400, 0x052F, // Cyrillic + Cyrillic Supplement
@@ -131,6 +133,8 @@ void overlay::init( )
 		0xA640, 0xA69F, // Cyrillic Extended-B
 		0x3131, 0x3163, // Korean alphabets
 		0xAC00, 0xD79D, // Korean characters
+		0x3000, 0x30FF, // CJK Symbols and Punctuations, Hiragana, Katakana
+		0x31F0, 0x31FF, // Katakana Phonetic Extensions
 		0,
 	};
 

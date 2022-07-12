@@ -7,6 +7,7 @@
 
 #include <iostream>
 #include <math.h>
+#include <algorithm>
 
 namespace sdk
 {
@@ -101,6 +102,14 @@ namespace sdk
 		vector lerp( vector to, float percent )
 		{
 			return *this + ( to - *this ) * percent;
+		}
+
+		vector clamped( )
+		{
+			return
+			{
+				std::clamp< float >( x, -89.0f, 89.0f ), std::clamp< float >( y, -180.0f, 180.0f ), 0
+			};
 		}
 
 		bool operator==( const vector& base ) const

@@ -7,7 +7,9 @@
     <option name="reloaded" value="true" />
   </component>
   <component name="CMakeRunConfigurationManager">
-    <generated />
+    <generated>
+      <config projectName="hotwheels_csgo_external" targetName="hotwheels_csgo_external" />
+    </generated>
   </component>
   <component name="CMakeSettings">
     <configurations>
@@ -16,12 +18,20 @@
     </configurations>
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="ea2d99d1-c026-4e0c-8b55-b2f98d6da3ed" name="Changes" comment="Test commit" />
+    <list default="true" id="ea2d99d1-c026-4e0c-8b55-b2f98d6da3ed" name="Changes" comment="Removed skin-changer because it removes the point of an external">
+      <change afterPath="$PROJECT_DIR$/project/cheat/helpers/driver/driver_binary.hpp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/project/cheat/features/aimbot/aimbot.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/project/cheat/features/aimbot/aimbot.cpp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/project/cheat/features/overlay/overlay.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/project/cheat/features/overlay/overlay.cpp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/project/cheat/helpers/driver/driver.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/project/cheat/helpers/driver/driver.cpp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/project/cheat/sdk/structs/vector.hpp" beforeDir="false" afterPath="$PROJECT_DIR$/project/cheat/sdk/structs/vector.hpp" afterDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
     <option name="LAST_RESOLUTION" value="IGNORE" />
   </component>
+  <component name="ExecutionTargetManager" SELECTED_TARGET="CMakeBuildProfile:Debug-Visual Studio x64" />
   <component name="FileTemplateManagerImpl">
     <option name="RECENT_TEMPLATES">
       <list>
@@ -32,7 +42,7 @@
   <component name="Git.Settings">
     <option name="RECENT_BRANCH_BY_REPOSITORY">
       <map>
-        <entry key="$PROJECT_DIR$" value="testing" />
+        <entry key="$PROJECT_DIR$" value="staging" />
       </map>
     </option>
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
@@ -66,7 +76,7 @@
     "cidr.known.project.marker": "true",
     "last_opened_file_path": "C:/Users/liga/CLionProjects/hotwheels.vip",
     "nodejs_package_manager_path": "npm",
-    "settings.editor.selected.configurable": "preferences.pluginManager"
+    "settings.editor.selected.configurable": "CPPToolchains"
   }
 }]]></component>
   <component name="RecentsManager">
@@ -75,9 +85,9 @@
     </key>
   </component>
   <component name="RunManager">
-    <configuration default="true" type="CLionExternalRunConfiguration" factoryName="Application" REDIRECT_INPUT="false" ELEVATE="false" USE_EXTERNAL_CONSOLE="false" PASS_PARENT_ENVS_2="true">
+    <configuration default="true" type="CMakeRunConfiguration" factoryName="Application" REDIRECT_INPUT="false" ELEVATE="false" USE_EXTERNAL_CONSOLE="false" PASS_PARENT_ENVS_2="true">
       <method v="2">
-        <option name="CLION.EXTERNAL.BUILD" enabled="true" />
+        <option name="com.jetbrains.cidr.execution.CidrBuildBeforeRunTaskProvider$BuildBeforeRunTask" enabled="true" />
       </method>
     </configuration>
     <configuration name="hotwheels_csgo_external" type="CMakeRunConfiguration" factoryName="Application" REDIRECT_INPUT="false" ELEVATE="true" USE_EXTERNAL_CONSOLE="false" PASS_PARENT_ENVS_2="true" PROJECT_NAME="hotwheels_csgo_external" TARGET_NAME="hotwheels_csgo_external" CONFIG_NAME="Debug-Visual Studio x64" RUN_TARGET_PROJECT_NAME="hotwheels_csgo_external" RUN_TARGET_NAME="hotwheels_csgo_external">
@@ -140,7 +150,11 @@
       <workItem from="1657427552571" duration="8173000" />
       <workItem from="1657449495393" duration="1012000" />
       <workItem from="1657450526469" duration="1945000" />
-      <workItem from="1657464529894" duration="1981000" />
+      <workItem from="1657464529894" duration="2802000" />
+      <workItem from="1657517194629" duration="43000" />
+      <workItem from="1657519581305" duration="631000" />
+      <workItem from="1657526776871" duration="1922000" />
+      <workItem from="1657535784697" duration="4081000" />
     </task>
     <task id="LOCAL-00001" summary="Big push">
       <created>1656709532508</created>
@@ -177,7 +191,35 @@
       <option name="project" value="LOCAL" />
       <updated>1657469329952</updated>
     </task>
-    <option name="localTasksCounter" value="6" />
+    <task id="LOCAL-00006" summary="Test commit 2">
+      <created>1657469893850</created>
+      <option name="number" value="00006" />
+      <option name="presentableId" value="LOCAL-00006" />
+      <option name="project" value="LOCAL" />
+      <updated>1657469893850</updated>
+    </task>
+    <task id="LOCAL-00007" summary="Test commit 3">
+      <created>1657469922313</created>
+      <option name="number" value="00007" />
+      <option name="presentableId" value="LOCAL-00007" />
+      <option name="project" value="LOCAL" />
+      <updated>1657469922313</updated>
+    </task>
+    <task id="LOCAL-00008" summary="Started work on converting winapi to snake-case">
+      <created>1657527599083</created>
+      <option name="number" value="00008" />
+      <option name="presentableId" value="LOCAL-00008" />
+      <option name="project" value="LOCAL" />
+      <updated>1657527599083</updated>
+    </task>
+    <task id="LOCAL-00009" summary="Removed skin-changer because it removes the point of an external">
+      <created>1657527763777</created>
+      <option name="number" value="00009" />
+      <option name="presentableId" value="LOCAL-00009" />
+      <option name="project" value="LOCAL" />
+      <updated>1657527763777</updated>
+    </task>
+    <option name="localTasksCounter" value="10" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -201,7 +243,11 @@
     <MESSAGE value="I think I was supposed to push a few days ago. I added too much to even say lol" />
     <MESSAGE value="I keep on forgetting about this push system, added a bunch." />
     <MESSAGE value="Test commit" />
-    <option name="LAST_COMMIT_MESSAGE" value="Test commit" />
+    <MESSAGE value="Test commit 2" />
+    <MESSAGE value="Test commit 3" />
+    <MESSAGE value="Started work on converting winapi to snake-case" />
+    <MESSAGE value="Removed skin-changer because it removes the point of an external" />
+    <option name="LAST_COMMIT_MESSAGE" value="Removed skin-changer because it removes the point of an external" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
