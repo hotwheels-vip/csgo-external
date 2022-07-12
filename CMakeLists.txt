@@ -22,13 +22,13 @@ file(GLOB_RECURSE SRC
 
 add_library(${PROJECT_NAME} SHARED ${SRC})
 
-find_library(D3D11_LIBRARY d3d11.lib PATHS "C:\\Program Files (x86)\\Windows Kits\\10\\Lib\\10.0.22621.0\\um\\x64")
-find_library(DXGI_LIBRARY dxgi.lib PATHS "C:\\Program Files (x86)\\Windows Kits\\10\\Lib\\10.0.22621.0\\um\\x64")
-find_library(FREETYPE_LIBRARY freetype.lib PATHS "project/dependencies/freetype")
+find_library(D3D11_LIB d3d11.lib PATHS "${PROJECT_SOURCE_DIR}/project/dependencies/directx")
+find_library(DXGI_LIB dxgi.lib PATHS "${PROJECT_SOURCE_DIR}/project/dependencies/directx")
+find_library(FREETYPE_LIBR freetype.lib PATHS "${PROJECT_SOURCE_DIR}/project/dependencies/freetype")
 
-target_link_libraries(${PROJECT_NAME} "${D3D11_LIBRARY}" "${DXGI_LIBRARY}")
-target_link_libraries(${PROJECT_NAME} "${FREETYPE_LIBRARY}")
+target_link_libraries(${PROJECT_NAME} "${D3D11_LIB}" "${DXGI_LIB}")
+target_link_libraries(${PROJECT_NAME} "${FREETYPE_LIBR}")
 
-target_link_directories(${PROJECT_NAME} PRIVATE "project/dependencies/freetype")
+target_link_directories(${PROJECT_NAME} PRIVATE "${PROJECT_SOURCE_DIR}/project/dependencies/freetype")
 
-target_include_directories(${PROJECT_NAME} PRIVATE "project/dependencies/freetype/include")
+target_include_directories(${PROJECT_NAME} PRIVATE "${PROJECT_SOURCE_DIR}/project/dependencies/freetype/include")
