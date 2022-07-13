@@ -18,8 +18,12 @@
     </configurations>
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="ea2d99d1-c026-4e0c-8b55-b2f98d6da3ed" name="Changes" comment="Now using bundled d3d11.lib &amp; dxgi.lib">
-      <change beforePath="$PROJECT_DIR$/CMakeLists.txt" beforeDir="false" afterPath="$PROJECT_DIR$/CMakeLists.txt" afterDir="false" />
+    <list default="true" id="ea2d99d1-c026-4e0c-8b55-b2f98d6da3ed" name="Changes" comment="freetype.lib was never bundled... Whoops!">
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/project/cheat/cheat.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/project/cheat/cheat.cpp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/project/cheat/sdk/definitions/game.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/project/cheat/sdk/definitions/game.cpp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/project/cheat/sdk/structs/offsets.hpp" beforeDir="false" afterPath="$PROJECT_DIR$/project/cheat/sdk/structs/offsets.hpp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/project/entry.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/project/entry.cpp" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -81,9 +85,9 @@
     </key>
   </component>
   <component name="RunManager">
-    <configuration default="true" type="CLionExternalRunConfiguration" factoryName="Application" REDIRECT_INPUT="false" ELEVATE="false" USE_EXTERNAL_CONSOLE="false" PASS_PARENT_ENVS_2="true">
+    <configuration default="true" type="CMakeRunConfiguration" factoryName="Application" REDIRECT_INPUT="false" ELEVATE="false" USE_EXTERNAL_CONSOLE="false" PASS_PARENT_ENVS_2="true">
       <method v="2">
-        <option name="CLION.EXTERNAL.BUILD" enabled="true" />
+        <option name="com.jetbrains.cidr.execution.CidrBuildBeforeRunTaskProvider$BuildBeforeRunTask" enabled="true" />
       </method>
     </configuration>
     <configuration name="hotwheels_csgo_external" type="CMakeRunConfiguration" factoryName="Application" REDIRECT_INPUT="false" ELEVATE="true" USE_EXTERNAL_CONSOLE="false" PASS_PARENT_ENVS_2="true" PROJECT_NAME="hotwheels_csgo_external" TARGET_NAME="hotwheels_csgo_external" CONFIG_NAME="Debug-Visual Studio x64" RUN_TARGET_PROJECT_NAME="hotwheels_csgo_external" RUN_TARGET_NAME="hotwheels_csgo_external">
@@ -151,7 +155,8 @@
       <workItem from="1657519581305" duration="631000" />
       <workItem from="1657526776871" duration="1922000" />
       <workItem from="1657535784697" duration="9323000" />
-      <workItem from="1657636829995" duration="360000" />
+      <workItem from="1657636829995" duration="8257000" />
+      <workItem from="1657672876901" duration="5640000" />
     </task>
     <task id="LOCAL-00001" summary="Big push">
       <created>1656709532508</created>
@@ -237,7 +242,14 @@
       <option name="project" value="LOCAL" />
       <updated>1657637056512</updated>
     </task>
-    <option name="localTasksCounter" value="13" />
+    <task id="LOCAL-00013" summary="freetype.lib was never bundled... Whoops!">
+      <created>1657637230978</created>
+      <option name="number" value="00013" />
+      <option name="presentableId" value="LOCAL-00013" />
+      <option name="project" value="LOCAL" />
+      <updated>1657637230978</updated>
+    </task>
+    <option name="localTasksCounter" value="14" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -268,7 +280,8 @@
     <MESSAGE value="Changed how the drivers binary is stored &amp; updated to 7/11 driver build.&#10;Added RCS clamping for obvious reasons." />
     <MESSAGE value="Added FMT dependency &amp; better console logging. This will use the console's default open output handle." />
     <MESSAGE value="Now using bundled d3d11.lib &amp; dxgi.lib" />
-    <option name="LAST_COMMIT_MESSAGE" value="Now using bundled d3d11.lib &amp; dxgi.lib" />
+    <MESSAGE value="freetype.lib was never bundled... Whoops!" />
+    <option name="LAST_COMMIT_MESSAGE" value="freetype.lib was never bundled... Whoops!" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>

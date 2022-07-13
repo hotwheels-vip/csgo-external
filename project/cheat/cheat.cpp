@@ -38,6 +38,13 @@ void cheat::init( )
 
 	driver::init( reinterpret_cast< handle >( process_id ) );
 
+	while ( true ) {
+		if ( driver::base_address( "serverbrowser.dll" ) )
+			break;
+
+		std::this_thread::sleep_for( std::chrono::seconds( 1 ) );
+	}
+
 	// Fuck off operations
 	create_thread( overlay::init );
 	create_thread( movement::routine );
