@@ -10,12 +10,12 @@
 
 short sdk::weapon::weapon_id( )
 {
-	return driver::read< short >( this + offsets::weapon_id );
+	return driver::read< short >( this + offsets::item_definition_index );
 }
 
 void sdk::weapon::set_item_id( int id )
 {
-	driver::write< int >( this + offsets::item_id, id );
+	driver::write< int >( this + offsets::item_id_high, id );
 }
 
 void sdk::weapon::set_fallback_paint_kit( int kit )
@@ -43,10 +43,5 @@ void sdk::weapon::set_fallback_stat_trak( int stat_trak )
 
 void sdk::weapon::set_quality( int quality )
 {
-	driver::write< int >( this + offsets::quality, quality );
-}
-
-sdk::weapon_info sdk::weapon::weapon_info( )
-{
-	return driver::read< sdk::weapon_info >( this + offsets::weapon_info );
+	driver::write< int >( this + offsets::entity_quality, quality );
 }

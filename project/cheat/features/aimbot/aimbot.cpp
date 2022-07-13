@@ -28,7 +28,7 @@ void aimbot::routine( )
 			continue;
 
 		auto client_state = driver::read< std::uint32_t >( reinterpret_cast< void* >( engine_dll + offsets::client_state ) );
-		auto view_angles  = driver::read< sdk::vector >( reinterpret_cast< PVOID >( client_state + offsets::view_angles ) );
+		auto view_angles  = driver::read< sdk::vector >( reinterpret_cast< PVOID >( client_state + offsets::client_state_view_angles ) );
 		auto aim_punch    = player->aim_punch_angle( );
 
 		sdk::vector adjusted_angles = { aim_punch.x * ( *g_config.find< float >( "aimbot_rcs_y" ) / 100.f ),
@@ -43,7 +43,8 @@ void aimbot::routine( )
 
 				auto lerped_angle = view_angles.lerp( corrected_angle, -( *g_config.find< float >( "aimbot_rcs_smooth" ) / 100.f ) + 1.f );
 
-				driver::write< sdk::vector >( reinterpret_cast< PVOID >( client_state + offsets::view_angles ), lerped_angle.clamped( ) );
+				driver::write< sdk::vector >( reinterpret_cast< PVOID >( client_state + offsets::client_state_view_angles ),
+				                              lerped_angle.clamped( ) );
 			}
 		}
 

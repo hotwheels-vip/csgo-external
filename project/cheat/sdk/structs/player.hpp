@@ -29,7 +29,6 @@ namespace sdk
 
 		sdk::weapon* get_weapon( );
 		sdk::weapon* get_weapon( int index );
-		sdk::weapon_info get_weapon_info( );
 
 		std::string_view competitive_rank( );
 

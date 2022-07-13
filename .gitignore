@@ -30,5 +30,7 @@
 *.exe
 *.out
 *.app
+
 /cmake-build-release-visual-studio-x64/
 /cmake-build-debug-visual-studio-x64/
+/.idea/workspace.xml

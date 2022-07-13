@@ -99,7 +99,7 @@ void menu::routine( float ease_animation )
 
 			auto client_state = driver::read< std::uint32_t >( reinterpret_cast< PVOID >( engine_dll + offsets::client_state ) );
 
-			driver::write< int >( reinterpret_cast< PVOID >( client_state + offsets::delta_ticks ), -1 );
+			driver::write< int >( reinterpret_cast< PVOID >( client_state + offsets::clientstate_delta_ticks ), -1 );
 		}
 
 		ImGui::End( );

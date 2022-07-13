@@ -18,8 +18,6 @@ namespace sdk
 		void set_quality( int quality );
 
 		short weapon_id( );
-
-		weapon_info weapon_info( );
 	};
 } // namespace sdk
 

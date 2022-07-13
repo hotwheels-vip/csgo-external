@@ -10,7 +10,7 @@
 
 int sdk::player::flags( )
 {
-	return driver::read< int >( this + offsets::player_flags );
+	return driver::read< int >( this + offsets::flags );
 }
 
 sdk::vector sdk::player::aim_punch_angle( )
@@ -35,7 +35,7 @@ sdk::matrix_3x4 sdk::player::rgfl( )
 
 int sdk::player::team_id( )
 {
-	return driver::read< int >( this + offsets::team_id );
+	return driver::read< int >( this + offsets::team_num );
 }
 
 sdk::life_state sdk::player::life_state( )
@@ -58,7 +58,7 @@ sdk::player_info sdk::player::player_info( )
 	static auto engine_dll = driver::base_address( "engine.dll" );
 
 	auto client_state = driver::read< std::uint32_t >( reinterpret_cast< PVOID >( engine_dll + offsets::client_state ) );
-	auto user_info    = driver::read< std::uint32_t >( reinterpret_cast< PVOID >( client_state + offsets::user_info ) );
+	auto user_info    = driver::read< std::uint32_t >( reinterpret_cast< PVOID >( client_state + offsets::client_state_player_info ) );
 	auto items        = driver::read< std::uint32_t >(
         reinterpret_cast< PVOID >( driver::read< std::uint32_t >( reinterpret_cast< PVOID >( user_info + 0x40 ) ) + 0xC ) );
 
@@ -73,7 +73,7 @@ int sdk::player::index( )
 
 int sdk::player::health( )
 {
-	return driver::read< int >( this + offsets::player_health );
+	return driver::read< int >( this + offsets::health );
 }
 
 std::string_view sdk::player::competitive_rank( )
@@ -85,7 +85,7 @@ std::string_view sdk::player::competitive_rank( )
 	if ( !resource )
 		return { "Unranked" };
 
-	auto rank = driver::read< std::uint32_t >( reinterpret_cast< PVOID >( resource + offsets::competitive_rank + ( index( ) * 0x4 ) ) );
+	auto rank = driver::read< std::uint32_t >( reinterpret_cast< PVOID >( resource + offsets::competitive_ranking + ( index( ) * 0x4 ) ) );
 
 	const char* rank_names[] = { "Unranked",
 		                         "Silver I",
@@ -130,14 +130,4 @@ sdk::weapon* sdk::player::get_weapon( )
 	auto weapon_index = driver::read< int >( this + offsets::active_weapon ) & 0xFFF;
 
 	return reinterpret_cast< sdk::weapon* >( sdk::game::get_entity( weapon_index - 1 ) );
-}
-
-sdk::weapon_info sdk::player::get_weapon_info( )
-{
-	auto weapon = get_weapon( );
-
-	if ( !weapon )
-		return { };
-
-	return weapon->weapon_info( );
 }
