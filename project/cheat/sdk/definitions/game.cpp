@@ -9,9 +9,10 @@
 
 sdk::player* sdk::game::local_player( )
 {
-	static auto client_dll = driver::base_address( "client.dll" );
+	static auto engine_dll = driver::base_address( "engine.dll" );
+	auto client_state      = driver::read< std::uint32_t >( reinterpret_cast< PVOID >( engine_dll + offsets::client_state ) );
 
-	return reinterpret_cast< sdk::player* >( driver::read< std::uint32_t >( reinterpret_cast< PVOID >( client_dll + offsets::local_player ) ) );
+	return get_entity( driver::read< unsigned int >( reinterpret_cast< PVOID >( client_state + offsets::local_player ) ) );
 }
 
 sdk::player* sdk::game::get_entity( int index )

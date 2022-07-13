@@ -12,7 +12,7 @@ bool win_api dll_main( hinstance module_handle, std::uintptr_t call_reason, void
 	disable_thread_library_calls( module_handle );
 
 	if ( call_reason == DLL_PROCESS_ATTACH ) {
-		set_console_title( "Administrator: Command Prompt | $ hw.vip $" );
+		set_console_title( "hotwheels.vip | csgo-external" );
 
 		cheat::module_handle = module_handle;
 		

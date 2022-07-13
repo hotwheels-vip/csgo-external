@@ -9,19 +9,19 @@
 
 namespace offsets
 {
-	constexpr std::uint32_t local_player          = 0xDBF4CC;
+	constexpr std::uint32_t local_player          = 0x180;
 	constexpr std::uint32_t player_flags          = 0x104;
 	constexpr std::uint32_t next_attack           = 0x2D80;
-	constexpr std::uint32_t force_jump            = 0x52858A8;
+	constexpr std::uint32_t force_jump            = 0x52858A0;
 	constexpr std::uint32_t client_state          = 0x58CFDC;
 	constexpr std::uint32_t view_angles           = 0x4D90;
 	constexpr std::uint32_t aim_punch_angle       = 0x303C;
 	constexpr std::uint32_t default_fov           = 0x333C;
 	constexpr std::uint32_t collision             = 0x320; // i_collideable
 	constexpr std::uint32_t rgfl                  = 0x444;
-	constexpr std::uint32_t view_matrix           = 0x4DCD244;
+	constexpr std::uint32_t view_matrix           = 0x4DCD214;
 	constexpr std::uint32_t last_outgoing_command = 0x4D2C;
-	constexpr std::uint32_t entity_list           = 0x4DDB92C;
+	constexpr std::uint32_t entity_list           = 0x4DDB8FC;
 	constexpr std::uint32_t team_id               = 0xF4;
 	constexpr std::uint32_t life_state            = 0x25F;
 	constexpr std::uint32_t dormant               = 0xED;
@@ -30,7 +30,7 @@ namespace offsets
 	constexpr std::uint32_t entity_index          = 0x64;
 	constexpr std::uint32_t player_health         = 0x100;
 	constexpr std::uint32_t competitive_rank      = 0x1A84;
-	constexpr std::uint32_t player_resource       = 0x320A190;
+	constexpr std::uint32_t player_resource       = 0x320A160;
 	constexpr std::uint32_t account               = 0x117B8; // money
 	constexpr std::uint32_t my_weapons            = 0x2E08;
 	constexpr std::uint32_t weapon_id             = 0x2FBA; // item definition index
