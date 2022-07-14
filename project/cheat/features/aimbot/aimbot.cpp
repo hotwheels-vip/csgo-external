@@ -40,7 +40,7 @@ void aimbot::routine( )
 			                            aim_punch.y * ( *g_config.find< float >( "aimbot_rcs_x" ) / 100.f ) };
 
 		if ( GetAsyncKeyState( VK_LBUTTON ) && GetForegroundWindow( ) == window_handle ) {
-			sdk::vector random_angles = { static_cast< float >( rand( ) * 1000 % 10 ) / 10, static_cast< float >( rand( ) * 1000 % 10 ) / 10.f };
+			sdk::vector random_angles = { static_cast< float >( rand( ) + 1 % 10 ) / 10, static_cast< float >( rand( ) + 1 % 10 ) / 10.f };
 
 			if ( *g_config.find< bool >( "aimbot_rcs" ) ) {
 				if ( current_weapon->is_pistol( ) ||

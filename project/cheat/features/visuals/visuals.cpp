@@ -88,26 +88,30 @@ void visuals::routine( )
 
 	sdk::vector punch_angle = local_player->aim_punch_angle( );
 
-	if ( *g_config.find< bool >( "visuals_recoil_crosshair" ) && ( !punch_angle.is_zero( ) || current_weapon->is_sniper( ) ) ) {
-		float x1 = overlay::screen_w / 2.f;
-		float y1 = overlay::screen_h / 2.f;
+	if ( current_weapon ) {
+		if ( *g_config.find< bool >( "visuals_recoil_crosshair" ) && ( !punch_angle.is_zero( ) || current_weapon->is_sniper( ) ) ) {
+			float x1 = overlay::screen_w / 2.f;
+			float y1 = overlay::screen_h / 2.f;
 
-		float x2 = overlay::screen_w / static_cast< float >( local_player->default_fov( ) );
-		float y2 = overlay::screen_h / static_cast< float >( local_player->default_fov( ) );
+			float x2 = overlay::screen_w / static_cast< float >( local_player->default_fov( ) );
+			float y2 = overlay::screen_h / static_cast< float >( local_player->default_fov( ) );
 
-		x1 -= x2 * punch_angle.y;
-		y1 += y2 * punch_angle.x;
+			x1 -= x2 * punch_angle.y;
+			y1 += y2 * punch_angle.x;
 
-		x1 = std::floor( x1 );
-		y1 = std::floor( y1 );
+			x1 = std::floor( x1 );
+			y1 = std::floor( y1 );
 
-		ImGui::GetBackgroundDrawList( )->AddLine( ImVec2( x1 - 6, y1 ), ImVec2( x1 + 6, y1 ), ImGui::GetColorU32( ImVec4( 0.f, 0.f, 0.f, 1.f ) ), 4 );
-		ImGui::GetBackgroundDrawList( )->AddLine( ImVec2( x1, y1 - 6 ), ImVec2( x1, y1 + 6 ), ImGui::GetColorU32( ImVec4( 0.f, 0.f, 0.f, 1.f ) ), 4 );
+			ImGui::GetBackgroundDrawList( )->AddLine( ImVec2( x1 - 6, y1 ), ImVec2( x1 + 6, y1 ), ImGui::GetColorU32( ImVec4( 0.f, 0.f, 0.f, 1.f ) ),
+			                                          4 );
+			ImGui::GetBackgroundDrawList( )->AddLine( ImVec2( x1, y1 - 6 ), ImVec2( x1, y1 + 6 ), ImGui::GetColorU32( ImVec4( 0.f, 0.f, 0.f, 1.f ) ),
+			                                          4 );
 
-		ImGui::GetBackgroundDrawList( )->AddLine( ImVec2( x1 - 5, y1 ), ImVec2( x1 + 5, y1 ),
-		                                          ImGui::GetColorU32( *g_config.find< ImVec4 >( "visuals_recoil_crosshair_color" ) ), 2 );
-		ImGui::GetBackgroundDrawList( )->AddLine( ImVec2( x1, y1 - 5 ), ImVec2( x1, y1 + 5 ),
-		                                          ImGui::GetColorU32( *g_config.find< ImVec4 >( "visuals_recoil_crosshair_color" ) ), 2 );
+			ImGui::GetBackgroundDrawList( )->AddLine( ImVec2( x1 - 5, y1 ), ImVec2( x1 + 5, y1 ),
+			                                          ImGui::GetColorU32( *g_config.find< ImVec4 >( "visuals_recoil_crosshair_color" ) ), 2 );
+			ImGui::GetBackgroundDrawList( )->AddLine( ImVec2( x1, y1 - 5 ), ImVec2( x1, y1 + 5 ),
+			                                          ImGui::GetColorU32( *g_config.find< ImVec4 >( "visuals_recoil_crosshair_color" ) ), 2 );
+		}
 	}
 
 	for ( int index = 0; index < 64; index++ ) {
