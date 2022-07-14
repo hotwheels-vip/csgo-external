@@ -84,9 +84,11 @@ void visuals::routine( )
 	if ( !local_player )
 		return;
 
+	auto current_weapon = local_player->get_weapon( );
+
 	sdk::vector punch_angle = local_player->aim_punch_angle( );
 
-	if ( *g_config.find< bool >( "visuals_recoil_crosshair" ) && !punch_angle.is_zero( ) ) {
+	if ( *g_config.find< bool >( "visuals_recoil_crosshair" ) && ( !punch_angle.is_zero( ) || current_weapon->is_sniper( ) ) ) {
 		float x1 = overlay::screen_w / 2.f;
 		float y1 = overlay::screen_h / 2.f;
 
@@ -195,7 +197,7 @@ void visuals::routine( )
 			const char* item_names[] = { "Knife", // 0 - default
 				                         "Deagle",
 				                         "Dual Berettas",
-				                         "FiveseveN",
+				                         "Five-seveN",
 				                         "Glock",
 				                         "none",
 				                         "none",
@@ -285,12 +287,16 @@ void visuals::routine( )
 				                         "Diversion Device",
 				                         "Frag Grenade" };
 
-			if ( player->get_weapon( ) && player->get_weapon( )->weapon_id( ) && player->get_weapon( )->weapon_id( ) < 84 &&
-			     player->get_weapon( )->weapon_id( ) > -1 ) {
+			if ( player->get_weapon( ) && player->get_weapon( )->weapon_id( ) > -1 ) {
 				ImGui::PushFont( icons ? font_icons : font_indicator );
 
 				auto text = item_names[ player->get_weapon( )->weapon_id( ) ];
 				auto icon = item_icons[ player->get_weapon( )->weapon_id( ) ];
+
+				if ( !text || !icon ) {
+					text = item_names[ 0 ];
+					icon = item_icons[ 0 ];
+				}
 
 				auto text_size     = ImGui::CalcTextSize( icons ? icon : text );
 				auto text_position = ImVec2( box.first.x + ( box.first.z - box.first.x ) / 2 - ( text_size.x / 2 ), box.first.w + ( icons ? 2 : 0 ) );

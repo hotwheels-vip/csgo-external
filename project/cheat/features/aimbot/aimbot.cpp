@@ -27,6 +27,11 @@ void aimbot::routine( )
 		if ( !player )
 			continue;
 
+		auto current_weapon = player->get_weapon( );
+
+		if ( !current_weapon )
+			continue;
+
 		auto client_state = driver::read< std::uint32_t >( reinterpret_cast< void* >( engine_dll + offsets::client_state ) );
 		auto view_angles  = driver::read< sdk::vector >( reinterpret_cast< PVOID >( client_state + offsets::client_state_view_angles ) );
 		auto aim_punch    = player->aim_punch_angle( );
@@ -38,6 +43,10 @@ void aimbot::routine( )
 			sdk::vector random_angles = { static_cast< float >( rand( ) * 1000 % 10 ) / 10, static_cast< float >( rand( ) * 1000 % 10 ) / 10.f };
 
 			if ( *g_config.find< bool >( "aimbot_rcs" ) ) {
+				if ( current_weapon->is_pistol( ) ||
+				     current_weapon->is_sniper( ) ) // Although there are those fully auto snipers, who really uses them >.<
+					continue;
+
 				auto corrected_angle = view_angles - ( adjusted_angles * 2 - last_aim_punch ) +
 				                       ( *g_config.find< bool >( "aimbot_rcs_error" ) ? random_angles : sdk::vector{ } );
 
