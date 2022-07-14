@@ -5,8 +5,6 @@
 #ifndef HOTWHEELS_CSGO_EXTERNAL_WEAPON_HPP
 #define HOTWHEELS_CSGO_EXTERNAL_WEAPON_HPP
 
-#include "weapon_info.hpp"
-
 namespace sdk
 {
 	struct weapon {
@@ -16,6 +14,13 @@ namespace sdk
 		void set_fallback_wear( float wear );
 		void set_fallback_stat_trak( int stat_trak );
 		void set_quality( int quality );
+
+		bool is_pistol();
+		bool is_rifle();
+		bool is_sniper();
+		bool is_smg();
+		bool is_shotgun();
+		bool is_lmg();
 
 		short weapon_id( );
 	};

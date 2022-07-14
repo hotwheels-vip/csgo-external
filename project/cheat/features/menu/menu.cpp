@@ -12,10 +12,10 @@
 
 #include "../../../dependencies/imgui/imgui.h"
 #include "../../helpers/configs/config.hpp"
+#include "../../helpers/console/console.hpp"
 #include "../../helpers/driver/driver.hpp"
 #include "../../sdk/structs/game.hpp"
 #include "../../sdk/structs/offsets.hpp"
-#include "../../helpers/console/console.hpp"
 
 void menu::routine( float ease_animation )
 {
@@ -86,6 +86,18 @@ void menu::routine( float ease_animation )
 	ImGui::SetNextWindowPos( ImVec2( 10.f + ( 5.f + 175.f ) * current_position++ * ease_animation, 10 ) );
 	if ( ImGui::Begin( "Movement", nullptr, ImGuiWindowFlags_AlwaysAutoResize ) ) {
 		ImGui::Checkbox( "Bunny Hop", g_config.find< bool >( "movement_bunny_hop" ) );
+
+		if ( *g_config.find< bool >( "movement_bunny_hop" ) ) {
+			ImGui::PushItemWidth( -1 );
+			ImGui::SliderInt( "##Bhop Delay", g_config.find< int >( "movement_bunny_hop_delay" ), 0, 100, "Delay: %dms" );
+			ImGui::PopItemWidth( );
+
+			if ( ImGui::IsItemHovered( ) ) {
+				ImGui::SetTooltip( "Delay is randomized" );
+			}
+
+			ImGui::Checkbox( "Bunny Hop Error", g_config.find< bool >( "movement_bunny_hop_error" ) );
+		}
 
 		ImGui::End( );
 	}
@@ -187,7 +199,29 @@ void menu::routine( float ease_animation )
 	ImGui::SetNextWindowSize( ImVec2( 500, 0 ) );
 	ImGui::SetNextWindowPos( ImVec2( 10.f + ( 5.f + 175.f ) * current_position++ * ease_animation, 10 ) );
 	if ( ImGui::Begin( "Players", nullptr, ImGuiWindowFlags_AlwaysAutoResize ) ) {
-		ImGui::Columns( 3, "Players", true );
+		std::vector< sdk::player* > players_team{ };
+		std::vector< sdk::player* > players_enemies{ };
+
+		for ( auto index = 0; index < 64; index++ ) {
+			auto player = sdk::game::get_entity( index );
+
+			if ( player ) {
+				auto team = player->team_id( );
+
+				auto local_player = sdk::game::local_player( );
+
+				if ( !local_player )
+					continue;
+
+				if ( team == local_player->team_id( ) ) {
+					players_team.push_back( player );
+				} else {
+					players_enemies.push_back( player );
+				}
+			}
+		}
+
+		ImGui::Columns( 3, "Teammates", true );
 		ImGui::Separator( );
 
 		ImGui::Text( "Name" );
@@ -200,15 +234,19 @@ void menu::routine( float ease_animation )
 		ImGui::NextColumn( );
 		ImGui::Separator( );
 
-		for ( int index = 0; index < 64; index++ ) {
-			auto player = sdk::game::get_entity( index );
+		for ( auto& player : players_team ) {
+			ImGui::TextColored( ImVec4( 0.7019f, 0.9725f, 1.f, 1.f ), "%s", player->player_info( ).name );
+			ImGui::NextColumn( );
+			ImGui::Text( "%s", player->competitive_rank( ).data( ) );
+			ImGui::NextColumn( );
+			ImGui::Text( "$%d", player->money( ) );
+			ImGui::NextColumn( );
 
-			if ( !player )
-				continue;
+			ImGui::Separator( );
+		}
 
-			auto player_info = player->player_info( );
-
-			ImGui::Text( "%s", player_info.name );
+		for ( auto& player : players_enemies ) {
+			ImGui::TextColored( ImVec4( 1.f, 0.7019f, 0.7019f, 1.f ), "%s", player->player_info( ).name );
 			ImGui::NextColumn( );
 			ImGui::Text( "%s", player->competitive_rank( ).data( ) );
 			ImGui::NextColumn( );

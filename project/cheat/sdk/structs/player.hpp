@@ -10,7 +10,6 @@
 #include "player_info.hpp"
 #include "vector.hpp"
 #include "weapon.hpp"
-#include "weapon_info.hpp"
 
 #include "../enums/life_state.hpp"
 

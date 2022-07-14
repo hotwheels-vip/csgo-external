@@ -131,9 +131,14 @@ void config::impl::init( )
 	insert( "visuals_weapons_color", ImVec4( 1.f, 1.f, 1.f, 1.f ) );
 	insert( "visuals_health_bars", false );
 	insert( "visuals_health_bars_color", ImVec4( 0.f, 1.f, 0.f, 1.f ) );
+	insert( "visuals_skeletons", false );
+	insert( "visuals_skeletons_color", ImVec4( 1.f, 1.f, 1.f, 1.f ) );
 
+	insert( "visuals_bomb_timer", false );
 	insert( "visuals_recoil_crosshair", false );
 	insert( "visuals_recoil_crosshair_color", ImVec4( 1.f, 1.f, 1.f, 1.f ) );
 
 	insert( "movement_bunny_hop", false );
+	insert( "movement_bunny_hop_delay", 0 );
+	insert( "movement_bunny_hop_error", false );
 }
