@@ -12,6 +12,8 @@
 #include "features/aimbot/aimbot.hpp"
 #include "features/movement/movement.hpp"
 
+#include "../dependencies/hash/hash.hpp"
+#include "../dependencies/xor/xor.hpp"
 #include "../entry.hpp"
 
 #include <chrono>
@@ -26,7 +28,7 @@ void cheat::init( )
 	handle process_id{ };
 
 	while ( !process_id ) {
-		get_window_thread_process_id( find_window( "Valve001", nullptr ), reinterpret_cast< lpdword >( &process_id ) );
+		get_window_thread_process_id( find_window( _( "Valve001" ), nullptr ), reinterpret_cast< lpdword >( &process_id ) );
 
 		if ( process_id )
 			break;
@@ -39,7 +41,7 @@ void cheat::init( )
 	driver::init( reinterpret_cast< handle >( process_id ) );
 
 	while ( true ) {
-		if ( driver::base_address( "serverbrowser.dll" ) )
+		if ( driver::base_address( __( "serverbrowser.dll" ) ) )
 			break;
 
 		std::this_thread::sleep_for( std::chrono::seconds( 1 ) );

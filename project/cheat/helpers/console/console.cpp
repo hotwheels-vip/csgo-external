@@ -1,5 +1,6 @@
 #include <Windows.h>
 
+#include "../../../dependencies/xor/xor.hpp"
 #include "../../../entry.hpp"
 #include "console.hpp"
 
@@ -9,12 +10,7 @@
 //-----------------------------------------------------------------------------
 void console::init( )
 {
-	if ( !AllocConsole( ) ) {
-		return;
-	}
 
-	freopen_s( &con_out, "CONIN$", "w", stdin );
-	freopen_s( &con_in, "CONOUT$", "w", stdout );
 }
 
 //-----------------------------------------------------------------------------
@@ -23,8 +19,5 @@ void console::init( )
 //-----------------------------------------------------------------------------
 void console::shutdown( )
 {
-	fclose( con_out );
-	fclose( con_in );
 
-	free_console( );
 }

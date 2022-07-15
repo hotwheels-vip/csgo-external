@@ -6,6 +6,7 @@
 #define HOTWHEELS_CSGO_EXTERNAL_CHEAT_HPP
 
 #include <Windows.h>
+#include <functional>
 #include <iostream>
 
 #include "../entry.hpp"
