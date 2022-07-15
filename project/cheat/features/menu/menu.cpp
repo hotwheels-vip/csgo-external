@@ -12,6 +12,7 @@
 
 #include "../../../dependencies/hash/hash.hpp"
 #include "../../../dependencies/imgui/imgui.h"
+#include "../../../dependencies/themida/include/ThemidaSDK.h"
 #include "../../../dependencies/xor/xor.hpp"
 #include "../../helpers/configs/config.hpp"
 #include "../../helpers/console/console.hpp"
@@ -21,6 +22,8 @@
 
 void menu::routine( float ease_animation )
 {
+	VM_START
+
 #ifdef _DEBUG
 	ImGui::ShowDemoWindow( );
 #endif
@@ -268,4 +271,6 @@ void menu::routine( float ease_animation )
 		ImGui::Columns( 1 );
 		ImGui::End( );
 	}
+
+	VM_END
 }

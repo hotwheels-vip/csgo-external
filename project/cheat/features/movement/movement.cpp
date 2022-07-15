@@ -17,10 +17,13 @@
 #include "../../sdk/structs/vector.hpp"
 
 #include "../../../dependencies/hash/hash.hpp"
+#include "../../../dependencies/themida/include/ThemidaSDK.h"
 #include "../../../dependencies/xor/xor.hpp"
 
 void movement::routine( )
 {
+	VM_START
+
 	static auto client_dll    = driver::base_address( __( "client.dll" ) );
 	static auto engine_dll    = driver::base_address( __( "engine.dll" ) );
 	static auto window_handle = FindWindowA( _( "Valve001" ), nullptr );
@@ -60,4 +63,6 @@ void movement::routine( )
 
 		std::this_thread::sleep_for( std::chrono::milliseconds( 1 ) );
 	}
+
+	VM_END
 }

@@ -10,7 +10,9 @@
 #include "../../helpers/driver/driver.hpp"
 
 #include "../../../dependencies/hash/hash.hpp"
+#include "../../../dependencies/themida/include/ThemidaSDK.h"
 #include "../../../dependencies/xor/xor.hpp"
+
 #include "../../sdk/enums/flags.hpp"
 #include "../../sdk/structs/game.hpp"
 #include "../../sdk/structs/offsets.hpp"
@@ -18,6 +20,8 @@
 
 void aimbot::routine( )
 {
+	VM_START
+
 	static auto client_dll    = driver::base_address( __( "client.dll" ) );
 	static auto engine_dll    = driver::base_address( __( "engine.dll" ) );
 	static auto window_handle = FindWindowA( _( "Valve001" ), nullptr );
@@ -67,4 +71,6 @@ void aimbot::routine( )
 
 		Sleep( 1 );
 	}
+
+	VM_END
 }

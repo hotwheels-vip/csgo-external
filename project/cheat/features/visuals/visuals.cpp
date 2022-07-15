@@ -16,6 +16,7 @@
 
 #include "../../../dependencies/hash/hash.hpp"
 #include "../../../dependencies/xor/xor.hpp"
+#include "../../../dependencies/themida/include/ThemidaSDK.h"
 
 std::pair< ImVec4, bool > calculate_box( sdk::player* player )
 {
@@ -83,6 +84,8 @@ std::pair< ImVec4, bool > calculate_box( sdk::player* player )
 
 void visuals::routine( )
 {
+	VM_START
+
 	ImGui::GetBackgroundDrawList( )->Flags &= ~ImDrawListFlags_AntiAliasedLines;
 
 	auto local_player = sdk::game::local_player( );
@@ -352,4 +355,6 @@ void visuals::routine( )
 	}
 
 	ImGui::GetBackgroundDrawList( )->Flags |= ImDrawListFlags_AntiAliasedLines;
+
+	VM_END
 }

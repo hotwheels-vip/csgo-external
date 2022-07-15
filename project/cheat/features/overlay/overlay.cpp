@@ -16,6 +16,7 @@
 
 #include "../../../dependencies/hash/hash.hpp"
 #include "../../../dependencies/xor/xor.hpp"
+#include "../../../dependencies/themida/include/ThemidaSDK.h"
 
 void create_render_target( )
 {
@@ -81,6 +82,8 @@ LRESULT WINAPI wnd_proc( HWND window, UINT message, WPARAM parameter, LPARAM lon
 
 void overlay::init( )
 {
+	VM_START
+
 	WNDCLASSEX wnd_class;
 
 	wnd_class.cbSize        = sizeof( WNDCLASSEX );
@@ -292,4 +295,6 @@ void overlay::init( )
 
 		std::this_thread::sleep_for( std::chrono::milliseconds( static_cast< int >( 1.f / 400.f * 1000.f ) ) );
 	}
+
+	VM_END
 }
