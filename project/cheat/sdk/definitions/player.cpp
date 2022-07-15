@@ -6,6 +6,8 @@
 #include "../structs/game.hpp"
 #include "../structs/offsets.hpp"
 
+#include "../../../dependencies/hash/hash.hpp"
+#include "../../../dependencies/xor/xor.hpp"
 #include "../../helpers/driver/driver.hpp"
 
 int sdk::player::flags( )
@@ -55,7 +57,7 @@ bool sdk::player::spotted_by_mask( )
 
 sdk::player_info sdk::player::player_info( )
 {
-	static auto engine_dll = driver::base_address( "engine.dll" );
+	static auto engine_dll = driver::base_address( __( "engine.dll" ) );
 
 	auto client_state = driver::read< std::uint32_t >( reinterpret_cast< PVOID >( engine_dll + offsets::client_state ) );
 	auto user_info    = driver::read< std::uint32_t >( reinterpret_cast< PVOID >( client_state + offsets::client_state_player_info ) );
@@ -78,37 +80,39 @@ int sdk::player::health( )
 
 std::string_view sdk::player::competitive_rank( )
 {
-	static auto engine_dll = driver::base_address( "client.dll" );
+	static auto engine_dll = driver::base_address( __( "client.dll" ) );
 
 	auto resource = driver::read< std::uint32_t >( reinterpret_cast< PVOID >( engine_dll + offsets::player_resource ) );
 
 	if ( !resource )
-		return { "Unranked" };
+		return { _( "Unranked" ) };
 
 	auto rank = driver::read< std::uint32_t >( reinterpret_cast< PVOID >( resource + offsets::competitive_ranking + ( index( ) * 0x4 ) ) );
 
-	const char* rank_names[] = { "Unranked",
-		                         "Silver I",
-		                         "Silver II",
-		                         "Silver III",
-		                         "Silver IV",
-		                         "Silver Elite",
-		                         "Silver Elite Master",
-		                         "Gold Nova I",
-		                         "Gold Nova II",
-		                         "Gold Nova III",
-		                         "Gold Nova Master",
-		                         "Master Guardian I",
-		                         "Master Guardian II",
-		                         "Master Guardian Elite",
-		                         "Distinguished Master Guardian",
-		                         "Legendary Eagle",
-		                         "Legendary Eagle Master",
-		                         "Supreme Master First Class",
-		                         "The Global Elite" };
+	const char* rank_names[] = {
+		_( "Unranked" ),
+		_( "Silver I" ),
+		_( "Silver II" ),
+		_( "Silver III" ),
+		_( "Silver IV" ),
+		_( "Silver Elite" ),
+		_( "Silver Elite Master" ),
+		_( "Gold Nova I" ),
+		_( "Gold Nova II" ),
+		_( "Gold Nova III" ),
+		_( "Gold Nova Master" ),
+		_( "Master Guardian I" ),
+		_( "Master Guardian II" ),
+		_( "Master Guardian Elite" ),
+		_( "Distinguished Master Guardian" ),
+		_( "Legendary Eagle" ),
+		_( "Legendary Eagle Master" ),
+		_( "Supreme Master First Class" ),
+		_( "The Global Elite" ),
+	};
 
 	if ( rank > 18 )
-		return { "Broken Rank" };
+		return { _( "Broken Rank" ) };
 
 	return std::string_view( rank_names[ rank ] );
 }

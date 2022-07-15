@@ -9,6 +9,9 @@
 
 #include "../../sdk/structs/offsets.hpp"
 
+#include "../../../dependencies/hash/hash.hpp"
+#include "../../../dependencies/xor/xor.hpp"
+
 void math::angle_to_vector( const sdk::vector& angle, sdk::vector* forward, sdk::vector* right, sdk::vector* up )
 {
 	float sp, sy, sr, cp, cy, cr;
@@ -106,7 +109,7 @@ float math::calculate_angle_fov( const sdk::vector& ang1, const sdk::vector& ang
 
 std::pair< sdk::vector, bool > math::world_to_screen( sdk::vector position )
 {
-	static auto client_dll = driver::base_address( "client.dll" );
+	static auto client_dll = driver::base_address( __( "client.dll" ) );
 
 	const auto matrix = driver::read< sdk::view_matrix >( reinterpret_cast< PVOID >( client_dll + offsets::view_matrix ) );
 

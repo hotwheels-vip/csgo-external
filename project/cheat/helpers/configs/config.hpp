@@ -7,7 +7,7 @@
 
 #include <deque>
 
-#include "../../../dependencies/fnv/fnv.hpp"
+#include "../../../dependencies/hash/hash.hpp"
 #include "../../../dependencies/imgui/imgui.h"
 #include "../../../dependencies/json/json.hpp"
 
@@ -74,36 +74,11 @@ namespace config
 		void load( std::string path );
 
 		void insert( std::uint32_t hash, option _option );
-		void insert( std::string name, option _option );
 
 		template< typename T >
-		T& find( std::uint32_t hash )
+		T* find( std::uint32_t hash )
 		{
 			auto found_option = settings.find( hash );
-
-			if ( !found_option._Ptr )
-				return ( T& )( nullptr );
-
-			switch ( found_option->second.type ) {
-			case variable_type::VARIABLE_BOOL:
-				return ( T& )( found_option->second.bool_value );
-			case variable_type::VARIABLE_INT:
-				return ( T& )( found_option->second.int_value );
-			case variable_type::VARIABLE_FLOAT:
-				return ( T& )( found_option->second.float_value );
-			case variable_type::VARIABLE_COLOR:
-				return ( T& )( found_option->second.color_value );
-			case variable_type::VARIABLE_STRING:
-				return ( T& )( found_option->second.string_value );
-			}
-
-			return ( T& )( nullptr );
-		}
-
-		template< typename T >
-		T* find( std::string name )
-		{
-			auto found_option = settings.find( fnv( name.c_str( ) ) );
 
 			if ( !found_option._Ptr )
 				return ( T* )( nullptr );

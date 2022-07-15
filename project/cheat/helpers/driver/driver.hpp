@@ -29,7 +29,7 @@ struct WRITE_MEMORY_CALLBACK_INPUT {
 
 struct BASE_ADDRESS_CALLBACK_INPUT {
 	HANDLE pid;
-	WCHAR module[ 0x256 ];
+	ULONG64 hash;
 
 	ULONG64 response;
 };
@@ -96,15 +96,13 @@ namespace driver
 		                        &bytes_returned, nullptr );
 	}
 
-	inline std::uint64_t base_address( const char* name )
+	inline std::uint64_t base_address( std::size_t hash )
 	{
 		BASE_ADDRESS_CALLBACK_INPUT base_address_callback_input{ };
 		DWORD bytes_returned{ };
 
-		int length_wchar = MultiByteToWideChar( CP_UTF8, 0, name, -1, nullptr, 0 );
-		MultiByteToWideChar( CP_UTF8, 0, name, -1, base_address_callback_input.module, length_wchar );
-
-		base_address_callback_input.pid = process_pid;
+		base_address_callback_input.hash = hash;
+		base_address_callback_input.pid  = process_pid;
 
 		DeviceIoControl( device_handle, IOCTL_BASE_ADDRESS, &base_address_callback_input, sizeof( base_address_callback_input ),
 		                 &base_address_callback_input, sizeof( base_address_callback_input ), &bytes_returned, nullptr );
