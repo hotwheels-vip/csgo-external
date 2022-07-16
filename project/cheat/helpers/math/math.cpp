@@ -109,7 +109,7 @@ float math::calculate_angle_fov( const sdk::vector& ang1, const sdk::vector& ang
 
 std::pair< sdk::vector, bool > math::world_to_screen( sdk::vector position )
 {
-	static auto client_dll = driver::base_address( __( "client.dll" ) );
+	static auto client_dll = driver::base_address( _hash( "client.dll" ) );
 
 	const auto matrix = driver::read< sdk::view_matrix >( reinterpret_cast< PVOID >( client_dll + offsets::view_matrix ) );
 

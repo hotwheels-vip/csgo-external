@@ -4,11 +4,14 @@
 
 #include "config.hpp"
 #include "../console/console.hpp"
+#include "../../../dependencies/themida/include/ThemidaSDK.h"
 
 #include <fstream>
 
 void config::impl::save( std::string path )
 {
+	STR_ENCRYPT_START
+
 	using namespace nlohmann;
 
 	json reader;
@@ -43,13 +46,17 @@ void config::impl::save( std::string path )
 
 	stream.close( );
 
-	std::string file_name = path.substr( path.find_last_of( _( "\\/" ) ) + 1 );
+	std::string file_name = path.substr( path.find_last_of( "\\/" ) + 1 );
 
-	console::log< fmt::color::light_pink >( _( "[CONFIG] Saved config to {}" ), file_name );
+	console::log< fmt::color::light_pink >( "[CONFIG] Saved config to {}", file_name );
+
+	STR_ENCRYPT_END
 }
 
 void config::impl::load( std::string path )
 {
+	STR_ENCRYPT_START
+
 	using namespace nlohmann;
 
 	json reader{ };
@@ -91,9 +98,11 @@ void config::impl::load( std::string path )
 		}
 	}
 
-	std::string file_name = path.substr( path.find_last_of( _( "\\/" ) ) + 1 );
+	std::string file_name = path.substr( path.find_last_of( "\\/" ) + 1 );
 
-	console::log< fmt::color::light_pink >( _( "[CONFIG] Loaded config from {}" ), file_name );
+	console::log< fmt::color::light_pink >( "[CONFIG] Loaded config from {}", file_name );
+
+	STR_ENCRYPT_END
 }
 
 void config::impl::insert( std::uint32_t hash, option _option )
@@ -103,31 +112,31 @@ void config::impl::insert( std::uint32_t hash, option _option )
 
 void config::impl::init( )
 {
-	insert( __( "menu_open_smooth" ), true );
+	insert( _hash( "menu_open_smooth" ), true );
 
-	insert( __( "aimbot_rcs" ), false );
-	insert( __( "aimbot_rcs_x" ), 100.f );
-	insert( __( "aimbot_rcs_y" ), 100.f );
-	insert( __( "aimbot_rcs_smooth" ), 0.f );
-	insert( __( "aimbot_rcs_error" ), true );
+	insert( _hash( "aimbot_rcs" ), false );
+	insert( _hash( "aimbot_rcs_x" ), 100.f );
+	insert( _hash( "aimbot_rcs_y" ), 100.f );
+	insert( _hash( "aimbot_rcs_smooth" ), 0.f );
+	insert( _hash( "aimbot_rcs_error" ), true );
 
-	insert( __( "visuals_boxes" ), false );
-	insert( __( "visuals_boxes_color" ), ImVec4( 1.f, 1.f, 1.f, 1.f ) );
-	insert( __( "visuals_names" ), false );
-	insert( __( "visuals_names_color" ), ImVec4( 1.f, 1.f, 1.f, 1.f ) );
-	insert( __( "visuals_weapons" ), false );
-	insert( __( "visuals_weapons_icons" ), false );
-	insert( __( "visuals_weapons_color" ), ImVec4( 1.f, 1.f, 1.f, 1.f ) );
-	insert( __( "visuals_health_bars" ), false );
-	insert( __( "visuals_health_bars_color" ), ImVec4( 0.f, 1.f, 0.f, 1.f ) );
-	insert( __( "visuals_skeletons" ), false );
-	insert( __( "visuals_skeletons_color" ), ImVec4( 1.f, 1.f, 1.f, 1.f ) );
+	insert( _hash( "visuals_boxes" ), false );
+	insert( _hash( "visuals_boxes_color" ), ImVec4( 1.f, 1.f, 1.f, 1.f ) );
+	insert( _hash( "visuals_names" ), false );
+	insert( _hash( "visuals_names_color" ), ImVec4( 1.f, 1.f, 1.f, 1.f ) );
+	insert( _hash( "visuals_weapons" ), false );
+	insert( _hash( "visuals_weapons_icons" ), false );
+	insert( _hash( "visuals_weapons_color" ), ImVec4( 1.f, 1.f, 1.f, 1.f ) );
+	insert( _hash( "visuals_health_bars" ), false );
+	insert( _hash( "visuals_health_bars_color" ), ImVec4( 0.f, 1.f, 0.f, 1.f ) );
+	insert( _hash( "visuals_skeletons" ), false );
+	insert( _hash( "visuals_skeletons_color" ), ImVec4( 1.f, 1.f, 1.f, 1.f ) );
 
-	insert( __( "visuals_bomb_timer" ), false );
-	insert( __( "visuals_recoil_crosshair" ), false );
-	insert( __( "visuals_recoil_crosshair_color" ), ImVec4( 1.f, 1.f, 1.f, 1.f ) );
+	insert( _hash( "visuals_bomb_timer" ), false );
+	insert( _hash( "visuals_recoil_crosshair" ), false );
+	insert( _hash( "visuals_recoil_crosshair_color" ), ImVec4( 1.f, 1.f, 1.f, 1.f ) );
 
-	insert( __( "movement_bunny_hop" ), false );
-	insert( __( "movement_bunny_hop_delay" ), 0 );
-	insert( __( "movement_bunny_hop_error" ), false );
+	insert( _hash( "movement_bunny_hop" ), false );
+	insert( _hash( "movement_bunny_hop_delay" ), 0 );
+	insert( _hash( "movement_bunny_hop_error" ), false );
 }

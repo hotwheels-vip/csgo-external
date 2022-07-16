@@ -20,7 +20,7 @@ struct CONST_HOLDER {
 #define CONSTANT_HOLD( value ) ( ( decltype( value ) )CONST_HOLDER< decltype( value ), value >::VALUE_HOLDER::RET_VALUE )
 
 // [!] build time hashing
-#define __( s ) CONSTANT_HOLD( hash::fnv1a_ct( s ) )
+#define _hash( s ) CONSTANT_HOLD( hash::fnv1a_ct( s ) )
 // [!] run time hashing
 #define ___( s ) hash::fnv1a_rt( s )
 

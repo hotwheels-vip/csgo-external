@@ -44,7 +44,6 @@ namespace driver
 	inline HANDLE process_pid{ };
 
 	bool init( HANDLE pid );
-	bool shutdown( );
 
 	template< typename T >
 	inline T read( PVOID address )
