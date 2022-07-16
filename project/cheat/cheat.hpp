@@ -16,6 +16,8 @@ namespace cheat
 	inline bool requested_shutdown{ };
 
 	inline hmodule module_handle{ };
+	inline std::uint64_t engine_dll{ };
+	inline std::uint64_t client_dll{ };
 
 	void init( );
 } // namespace cheat

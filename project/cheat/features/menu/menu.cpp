@@ -14,6 +14,7 @@
 #include "../../../dependencies/imgui/imgui.h"
 #include "../../../dependencies/themida/include/ThemidaSDK.h"
 #include "../../../dependencies/xor/xor.hpp"
+#include "../../cheat.hpp"
 #include "../../helpers/configs/config.hpp"
 #include "../../helpers/console/console.hpp"
 #include "../../helpers/driver/driver.hpp"
@@ -22,7 +23,7 @@
 
 void menu::routine( float ease_animation )
 {
-	STR_ENCRYPT_START
+	VM_TIGER_WHITE_START
 
 #ifdef _DEBUG
 	ImGui::ShowDemoWindow( );
@@ -113,9 +114,7 @@ void menu::routine( float ease_animation )
 	if ( ImGui::Begin( "Misc", nullptr, ImGuiWindowFlags_AlwaysAutoResize ) ) {
 		ImGui::Checkbox( "Smooth Open", g_config.find< bool >( _hash( "menu_open_smooth" ) ) );
 		if ( ImGui::Button( "Force Full Update" ) ) {
-			static auto engine_dll = driver::base_address( _hash( "engine.dll" ) );
-
-			auto client_state = driver::read< std::uint32_t >( reinterpret_cast< PVOID >( engine_dll + offsets::client_state ) );
+			auto client_state = driver::read< std::uint32_t >( reinterpret_cast< PVOID >( cheat::engine_dll + offsets::client_state ) );
 
 			driver::write< int >( reinterpret_cast< PVOID >( client_state + offsets::clientstate_delta_ticks ), -1 );
 		}
@@ -272,5 +271,5 @@ void menu::routine( float ease_animation )
 		ImGui::End( );
 	}
 
-	STR_ENCRYPT_END
+	VM_TIGER_WHITE_END
 }

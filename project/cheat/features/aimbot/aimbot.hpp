@@ -7,7 +7,7 @@
 
 namespace aimbot
 {
-	void routine( );
+	[[gnu::noinline]] void routine( );
 }
 
 #endif // HOTWHEELS_CSGO_EXTERNAL_AIMBOT_HPP

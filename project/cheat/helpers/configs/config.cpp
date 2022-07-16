@@ -3,8 +3,8 @@
 //
 
 #include "config.hpp"
-#include "../console/console.hpp"
 #include "../../../dependencies/themida/include/ThemidaSDK.h"
+#include "../console/console.hpp"
 
 #include <fstream>
 
@@ -31,7 +31,7 @@ void config::impl::save( std::string path )
 
 		case variable_type::VARIABLE_COLOR:
 			reader[ std::to_string( setting.first ) ] = { setting.second.color_value.x, setting.second.color_value.y, setting.second.color_value.z,
-				                        setting.second.color_value.w };
+				                                          setting.second.color_value.w };
 			break;
 
 		case variable_type::VARIABLE_STRING:

@@ -22,14 +22,7 @@
 
 void aimbot::routine( )
 {
-	STR_ENCRYPT_START
-
-	static auto client_dll    = driver::base_address( _hash( "client.dll" ) );
-	static auto engine_dll    = driver::base_address( _hash( "engine.dll" ) );
-	static auto window_handle = FindWindowA( "Valve001", nullptr );
 	static sdk::vector last_aim_punch{ };
-
-	STR_ENCRYPT_END
 
 	while ( !cheat::requested_shutdown ) {
 		auto player = sdk::game::local_player( );
@@ -42,14 +35,14 @@ void aimbot::routine( )
 		if ( !current_weapon )
 			continue;
 
-		auto client_state = driver::read< std::uint32_t >( reinterpret_cast< void* >( engine_dll + offsets::client_state ) );
+		auto client_state = driver::read< std::uint32_t >( reinterpret_cast< void* >( cheat::engine_dll + offsets::client_state ) );
 		auto view_angles  = driver::read< sdk::vector >( reinterpret_cast< PVOID >( client_state + offsets::client_state_view_angles ) );
 		auto aim_punch    = player->aim_punch_angle( );
 
 		sdk::vector adjusted_angles = { aim_punch.x * ( *g_config.find< float >( _hash( "aimbot_rcs_y" ) ) / 100.f ),
 			                            aim_punch.y * ( *g_config.find< float >( _hash( "aimbot_rcs_x" ) ) / 100.f ) };
 
-		if ( GetAsyncKeyState( VK_LBUTTON ) && GetForegroundWindow( ) == window_handle ) {
+		if ( GetAsyncKeyState( VK_LBUTTON ) ) {
 			sdk::vector random_angles = { static_cast< float >( ( rand( ) + 1 ) % 10 ) / 100.f,
 				                          static_cast< float >( ( ( rand( ) + 1 ) % 10 ) - 5.f ) / 100.f };
 

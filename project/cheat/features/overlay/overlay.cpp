@@ -57,6 +57,7 @@ bool create_device( HWND window_handle )
 		return false;
 
 	create_render_target( );
+
 	return true;
 }
 
@@ -64,8 +65,6 @@ extern IMGUI_IMPL_API LRESULT ImGui_ImplWin32_WndProcHandler( HWND hWnd, UINT ms
 
 LRESULT WINAPI wnd_proc( HWND window, UINT message, WPARAM parameter, LPARAM long_parameter )
 {
-	VM_TIGER_WHITE_START
-
 	if ( ImGui_ImplWin32_WndProcHandler( window, message, parameter, long_parameter ) )
 		return true;
 
@@ -78,8 +77,6 @@ LRESULT WINAPI wnd_proc( HWND window, UINT message, WPARAM parameter, LPARAM lon
 		PostQuitMessage( 0 );
 		return 0;
 	}
-
-	VM_TIGER_WHITE_END
 
 	return DefWindowProc( window, message, parameter, long_parameter );
 }

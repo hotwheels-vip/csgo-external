@@ -21,9 +21,9 @@
 
 void cheat::init( )
 {
-	console::log( "" ); // Still on first line.
+	VM_EAGLE_BLACK_START
 
-//	VM_EAGLE_BLACK_START
+	console::log( "" ); // Still on first line.
 
 	g_config.init( );
 
@@ -38,7 +38,7 @@ void cheat::init( )
 		std::this_thread::sleep_for( std::chrono::seconds( 1 ) );
 	}
 
-	std::this_thread::sleep_for( std::chrono::seconds( 1 ) );
+	Sleep( 1000 );
 
 	driver::init( reinterpret_cast< handle >( process_id ) );
 
@@ -46,23 +46,23 @@ void cheat::init( )
 		if ( driver::base_address( _hash( "serverbrowser.dll" ) ) )
 			break;
 
-		std::this_thread::sleep_for( std::chrono::seconds( 1 ) );
+		Sleep( 1000 );
 	}
 
-	// Fuck off operations
-	create_thread( overlay::init );
-	create_thread( movement::routine );
-	create_thread( aimbot::routine );
+	client_dll = driver::base_address( _hash( "client.dll" ) );
+	engine_dll = driver::base_address( _hash( "engine.dll" ) );
+
+	std::thread thread_overlay( &overlay::init );
+	std::thread thread_aimbot( &aimbot::routine );
+	std::thread thread_movement( &movement::routine );
 
 	while ( !get_async_key_state( VK_DELETE ) ) {
-		std::this_thread::sleep_for( std::chrono::milliseconds( 10 ) );
+		Sleep( 1 );
 	}
-
-//	VM_EAGLE_BLACK_END
 
 	requested_shutdown = true;
 
-	std::this_thread::sleep_for( std::chrono::seconds( 1 ) );
+	VM_EAGLE_BLACK_END
 
 	free_library_and_exit_thread( cheat::module_handle, 0 );
 }

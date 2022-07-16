@@ -11,6 +11,7 @@
 
 #include "../../../dependencies/hash/hash.hpp"
 #include "../../../dependencies/xor/xor.hpp"
+#include "../../cheat.hpp"
 
 void math::angle_to_vector( const sdk::vector& angle, sdk::vector* forward, sdk::vector* right, sdk::vector* up )
 {
@@ -109,9 +110,7 @@ float math::calculate_angle_fov( const sdk::vector& ang1, const sdk::vector& ang
 
 std::pair< sdk::vector, bool > math::world_to_screen( sdk::vector position )
 {
-	static auto client_dll = driver::base_address( _hash( "client.dll" ) );
-
-	const auto matrix = driver::read< sdk::view_matrix >( reinterpret_cast< PVOID >( client_dll + offsets::view_matrix ) );
+	const auto matrix = driver::read< sdk::view_matrix >( reinterpret_cast< PVOID >( cheat::client_dll + offsets::view_matrix ) );
 
 	if ( !matrix.data ) {
 		return { { }, false };

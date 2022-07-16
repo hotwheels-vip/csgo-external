@@ -17,12 +17,11 @@
 #include "../../../dependencies/hash/hash.hpp"
 #include "../../../dependencies/themida/include/ThemidaSDK.h"
 #include "../../../dependencies/xor/xor.hpp"
+#include "../../cheat.hpp"
 
 std::pair< ImVec4, bool > calculate_box( sdk::player* player )
 {
-	static auto engine_dll = driver::base_address( _hash( "engine.dll" ) );
-
-	auto client_state = driver::read< std::uint32_t >( reinterpret_cast< PVOID >( engine_dll + offsets::client_state ) );
+	auto client_state = driver::read< std::uint32_t >( reinterpret_cast< PVOID >( cheat::engine_dll + offsets::client_state ) );
 
 	sdk::collideable* collideable{ };
 
@@ -81,6 +80,8 @@ std::pair< ImVec4, bool > calculate_box( sdk::player* player )
 
 void visuals::routine( )
 {
+	VM_TIGER_WHITE_START
+
 	ImGui::GetBackgroundDrawList( )->Flags &= ~ImDrawListFlags_AntiAliasedLines;
 
 	auto local_player = sdk::game::local_player( );
@@ -179,8 +180,6 @@ void visuals::routine( )
 		if ( *g_config.find< bool >( _hash( "visuals_weapons" ) ) ) {
 			auto color = *g_config.find< ImVec4 >( _hash( "visuals_weapons_color" ) );
 			auto icons = *g_config.find< bool >( _hash( "visuals_weapons_icons" ) );
-
-			STR_ENCRYPT_START
 
 			const char* item_icons[] = { "`", // 0 - default
 				                         "B",    "C",    "D",    "E",    "none", "none", "F",    "G",    "H",
@@ -295,8 +294,6 @@ void visuals::routine( )
 				"Frag Grenade",
 			};
 
-			STR_ENCRYPT_END
-
 			if ( player->get_weapon( ) ) {
 				auto weapon_id = player->get_weapon( )->weapon_id( );
 
@@ -365,4 +362,6 @@ void visuals::routine( )
 	}
 
 	ImGui::GetBackgroundDrawList( )->Flags |= ImDrawListFlags_AntiAliasedLines;
+
+	VM_TIGER_WHITE_END
 }
