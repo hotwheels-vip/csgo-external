@@ -15,6 +15,7 @@
 #include <thread>
 
 #include "../../../dependencies/hash/hash.hpp"
+#include "../../../dependencies/themida/include/ThemidaSDK.h"
 #include "../../../dependencies/xor/xor.hpp"
 
 void create_render_target( )
@@ -63,6 +64,8 @@ extern IMGUI_IMPL_API LRESULT ImGui_ImplWin32_WndProcHandler( HWND hWnd, UINT ms
 
 LRESULT WINAPI wnd_proc( HWND window, UINT message, WPARAM parameter, LPARAM long_parameter )
 {
+	VM_TIGER_WHITE_START
+
 	if ( ImGui_ImplWin32_WndProcHandler( window, message, parameter, long_parameter ) )
 		return true;
 
@@ -76,11 +79,15 @@ LRESULT WINAPI wnd_proc( HWND window, UINT message, WPARAM parameter, LPARAM lon
 		return 0;
 	}
 
+	VM_TIGER_WHITE_END
+
 	return DefWindowProc( window, message, parameter, long_parameter );
 }
 
 void overlay::init( )
 {
+	VM_TIGER_WHITE_START
+
 	WNDCLASSEX wnd_class;
 
 	wnd_class.cbSize        = sizeof( WNDCLASSEX );
@@ -92,8 +99,8 @@ void overlay::init( )
 	wnd_class.hbrBackground = ( HBRUSH )CreateSolidBrush( RGB( 0, 0, 0 ) );
 	wnd_class.hInstance     = GetModuleHandle( NULL );
 	wnd_class.lpfnWndProc   = wnd_proc;
-	wnd_class.lpszClassName = _("Hotwheels001");
-	wnd_class.lpszMenuName  = _("Hotwheels Overlay");
+	wnd_class.lpszClassName = "Hotwheels001";
+	wnd_class.lpszMenuName  = "Hotwheels Overlay";
 	wnd_class.style         = CS_VREDRAW | CS_HREDRAW;
 
 	RegisterClassEx( &wnd_class );
@@ -146,7 +153,7 @@ void overlay::init( )
 
 	io.Fonts->AddFontDefault( &verdana_font_config );
 
-	visuals::font = io.Fonts->AddFontFromFileTTF( _( "C:\\Windows\\Fonts\\verdanab.ttf" ), 11.f, &verdana_font_config, ranges );
+	visuals::font = io.Fonts->AddFontFromFileTTF( "C:\\Windows\\Fonts\\verdanab.ttf", 11.f, &verdana_font_config, ranges );
 
 	verdana_font_config.FontBuilderFlags = ImGuiFreeTypeBuilderFlags_Monochrome;
 
@@ -247,7 +254,7 @@ void overlay::init( )
 		current_animation = std::clamp( current_animation + ( open ? increment_per_frame : -increment_per_frame ), 0.f, 1.f );
 
 		auto ease_in_out = []( float x ) -> float {
-			if ( *g_config.find< bool >( __( "menu_open_smooth" ) ) ) {
+			if ( *g_config.find< bool >( _hash( "menu_open_smooth" ) ) ) {
 				return x == 0.f   ? 0.f
 				       : x == 1.f ? 1.f
 				       : x < 0.5f ? powf( 2.f, 20.f * x - 10.f ) / 2.f
@@ -292,4 +299,6 @@ void overlay::init( )
 
 		std::this_thread::sleep_for( std::chrono::milliseconds( static_cast< int >( 1.f / 400.f * 1000.f ) ) );
 	}
+
+	VM_TIGER_WHITE_END
 }

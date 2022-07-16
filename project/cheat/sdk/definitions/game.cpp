@@ -10,7 +10,7 @@
 
 sdk::player* sdk::game::local_player( )
 {
-	constexpr auto engine_dll_constexpr = __( "engine.dll" );
+	constexpr auto engine_dll_constexpr = _hash( "engine.dll" );
 
 	static auto engine_dll = driver::base_address( engine_dll_constexpr );
 	auto client_state      = driver::read< std::uint32_t >( reinterpret_cast< PVOID >( engine_dll + offsets::client_state ) );
@@ -20,7 +20,7 @@ sdk::player* sdk::game::local_player( )
 
 sdk::player* sdk::game::get_entity( int index )
 {
-	constexpr auto client_dll_constexpr = __( "client.dll" );
+	constexpr auto client_dll_constexpr = _hash( "client.dll" );
 
 	static auto client_dll = driver::base_address( client_dll_constexpr );
 

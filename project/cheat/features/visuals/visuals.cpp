@@ -15,14 +15,12 @@
 #include "../../sdk/structs/offsets.hpp"
 
 #include "../../../dependencies/hash/hash.hpp"
+#include "../../../dependencies/themida/include/ThemidaSDK.h"
 #include "../../../dependencies/xor/xor.hpp"
 
 std::pair< ImVec4, bool > calculate_box( sdk::player* player )
 {
-	constexpr auto client_dll_constexpr = __( "client.dll" );
-	constexpr auto engine_dll_constexpr = __( "engine.dll" );
-
-	static auto engine_dll = driver::base_address( engine_dll_constexpr );
+	static auto engine_dll = driver::base_address( _hash( "engine.dll" ) );
 
 	auto client_state = driver::read< std::uint32_t >( reinterpret_cast< PVOID >( engine_dll + offsets::client_state ) );
 
@@ -95,7 +93,7 @@ void visuals::routine( )
 	sdk::vector punch_angle = local_player->aim_punch_angle( );
 
 	if ( current_weapon ) {
-		if ( *g_config.find< bool >( __( "visuals_recoil_crosshair" ) ) && ( !punch_angle.is_zero( ) || current_weapon->is_sniper( ) ) ) {
+		if ( *g_config.find< bool >( _hash( "visuals_recoil_crosshair" ) ) && ( !punch_angle.is_zero( ) || current_weapon->is_sniper( ) ) ) {
 			float x1 = overlay::screen_w / 2.f;
 			float y1 = overlay::screen_h / 2.f;
 
@@ -114,9 +112,11 @@ void visuals::routine( )
 			                                          4 );
 
 			ImGui::GetBackgroundDrawList( )->AddLine( ImVec2( x1 - 5, y1 ), ImVec2( x1 + 5, y1 ),
-			                                          ImGui::GetColorU32( *g_config.find< ImVec4 >( __( "visuals_recoil_crosshair_color" ) ) ), 2 );
+			                                          ImGui::GetColorU32( *g_config.find< ImVec4 >( _hash( "visuals_recoil_crosshair_color" ) ) ),
+			                                          2 );
 			ImGui::GetBackgroundDrawList( )->AddLine( ImVec2( x1, y1 - 5 ), ImVec2( x1, y1 + 5 ),
-			                                          ImGui::GetColorU32( *g_config.find< ImVec4 >( __( "visuals_recoil_crosshair_color" ) ) ), 2 );
+			                                          ImGui::GetColorU32( *g_config.find< ImVec4 >( _hash( "visuals_recoil_crosshair_color" ) ) ),
+			                                          2 );
 		}
 	}
 
@@ -149,8 +149,8 @@ void visuals::routine( )
 
 		auto draw_list = ImGui::GetBackgroundDrawList( );
 
-		if ( *g_config.find< bool >( __( "visuals_boxes" ) ) ) {
-			auto color = *g_config.find< ImVec4 >( __( "visuals_boxes_color" ) );
+		if ( *g_config.find< bool >( _hash( "visuals_boxes" ) ) ) {
+			auto color = *g_config.find< ImVec4 >( _hash( "visuals_boxes_color" ) );
 
 			draw_list->AddRect( ImVec2( box.first.x - 1, box.first.y - 1 ), ImVec2( box.first.z + 1, box.first.w + 1 ),
 			                    ImGui::GetColorU32( ImVec4( 0.f, 0.f, 0.f, color.w - 0.5f ) ) );
@@ -159,24 +159,28 @@ void visuals::routine( )
 			draw_list->AddRect( ImVec2( box.first.x, box.first.y ), ImVec2( box.first.z, box.first.w ), ImGui::GetColorU32( color ) );
 		}
 
-		if ( *g_config.find< bool >( __( "visuals_names" ) ) ) {
-			auto color = *g_config.find< ImVec4 >( __( "visuals_names_color" ) );
+		if ( *g_config.find< bool >( _hash( "visuals_names" ) ) ) {
+			auto color = *g_config.find< ImVec4 >( _hash( "visuals_names_color" ) );
 
-			ImGui::PushFont( font );
+			if ( player->player_info( ).name[ 0 ] != '\0' ) {
+				ImGui::PushFont( font );
 
-			auto text_size     = ImGui::CalcTextSize( player->player_info( ).name );
-			auto text_position = ImVec2( box.first.x + ( box.first.z - box.first.x ) / 2 - ( text_size.x / 2 ), box.first.y - text_size.y - 2 );
+				auto text_size     = ImGui::CalcTextSize( player->player_info( ).name );
+				auto text_position = ImVec2( box.first.x + ( box.first.z - box.first.x ) / 2 - ( text_size.x / 2 ), box.first.y - text_size.y - 2 );
 
-			draw_list->AddText( ImVec2( text_position.x + 1, text_position.y + 1 ), ImGui::GetColorU32( ImVec4( 0.f, 0.f, 0.f, color.w - 0.5f ) ),
-			                    player->player_info( ).name );
-			draw_list->AddText( text_position, ImGui::GetColorU32( color ), player->player_info( ).name );
+				draw_list->AddText( ImVec2( text_position.x + 1, text_position.y + 1 ), ImGui::GetColorU32( ImVec4( 0.f, 0.f, 0.f, color.w - 0.5f ) ),
+				                    player->player_info( ).name );
+				draw_list->AddText( text_position, ImGui::GetColorU32( color ), player->player_info( ).name );
 
-			ImGui::PopFont( );
+				ImGui::PopFont( );
+			}
 		}
 
-		if ( *g_config.find< bool >( __( "visuals_weapons" ) ) ) {
-			auto color = *g_config.find< ImVec4 >( __( "visuals_weapons_color" ) );
-			auto icons = *g_config.find< bool >( __( "visuals_weapons_icons" ) );
+		if ( *g_config.find< bool >( _hash( "visuals_weapons" ) ) ) {
+			auto color = *g_config.find< ImVec4 >( _hash( "visuals_weapons_color" ) );
+			auto icons = *g_config.find< bool >( _hash( "visuals_weapons_icons" ) );
+
+			STR_ENCRYPT_START
 
 			const char* item_icons[] = { "`", // 0 - default
 				                         "B",    "C",    "D",    "E",    "none", "none", "F",    "G",    "H",
@@ -205,149 +209,158 @@ void visuals::routine( )
 				                         "1",    "none", "2",    "none", "k",    "3",    "4",    "none", "5", "none", "none", "d", "e", "b" };
 
 			const char* item_names[] = {
-				_( "Knife" ),
-				_( "Deagle" ),
-				_( "Dual Berettas" ),
-				_( "Five-seveN" ),
-				_( "Glock" ),
-				_( "none" ),
-				_( "none" ),
-				_( "AK-47" ),
-				_( "AUG" ),
-				_( "AWP" ),
-				_( "Famas" ),
-				_( "G3SG1" ),
-				_( "none" ),
-				_( "Galil Ar" ),
-				_( "M249" ),
-				_( "none" ),
-				_( "M4A4" ),
-				_( "Mac-10" ),
-				_( "none" ),
-				_( "P90" ),
-				_( "none" ),
-				_( "none" ),
-				_( "none" ),
-				_( "MP5-SD" ),
-				_( "UMP-45" ),
-				_( "XM1014" ),
-				_( "Bizon" ),
-				_( "Mag7" ),
-				_( "Negev" ),
-				_( "Sawed-Off" ),
-				_( "Tec-9" ),
-				_( "Zeus" ),
-				_( "P2000" ),
-				_( "MP7" ),
-				_( "MP9" ),
-				_( "Nova" ),
-				_( "P250" ),
-				_( "none" ),
-				_( "SCAR-20" ),
-				_( "SG553" ),
-				_( "SSG-08" ),
-				_( "Knife" ),
-				_( "Knife" ),
-				_( "Flash" ),
-				_( "Nade" ),
-				_( "Smoke" ),
-				_( "Molotov" ),
-				_( "Decoy" ),
-				_( "Incendiary" ),
-				_( "C4" ),
-				_( "none" ),
-				_( "none" ),
-				_( "none" ),
-				_( "none" ),
-				_( "none" ),
-				_( "none" ),
-				_( "none" ),
-				_( "Medi-Shot" ),
-				_( "none" ),
-				_( "Knife" ),
-				_( "M4A1-S" ),
-				_( "USP-S" ),
-				_( "none" ),
-				_( "CZ75A" ),
-				_( "R8 Revolver" ),
-				_( "none" ),
-				_( "none" ),
-				_( "none" ),
-				_( "Tactical Grenade" ),
-				_( "Hands" ),
-				_( "Breach Charge" ),
-				_( "none" ),
-				_( "Tablet" ),
-				_( "none" ),
-				_( "Knife" ),
-				_( "Axe" ),
-				_( "Hammer" ),
-				_( "none" ),
-				_( "Wrench" ),
-				_( "none" ),
-				_( "Spectral Shiv" ),
-				_( "Fire Bomb" ),
-				_( "Diversion Device" ),
-				_( "Frag Grenade" ),
+				"Knife",
+				"Deagle",
+				"Dual Berettas",
+				"Five-seveN",
+				"Glock",
+				"none",
+				"none",
+				"AK-47",
+				"AUG",
+				"AWP",
+				"Famas",
+				"G3SG1",
+				"none",
+				"Galil Ar",
+				"M249",
+				"none",
+				"M4A4",
+				"Mac-10",
+				"none",
+				"P90",
+				"none",
+				"none",
+				"none",
+				"MP5-SD",
+				"UMP-45",
+				"XM1014",
+				"Bizon",
+				"Mag7",
+				"Negev",
+				"Sawed-Off",
+				"Tec-9",
+				"Zeus",
+				"P2000",
+				"MP7",
+				"MP9",
+				"Nova",
+				"P250",
+				"none",
+				"SCAR-20",
+				"SG553",
+				"SSG-08",
+				"Knife",
+				"Knife",
+				"Flash",
+				"Nade",
+				"Smoke",
+				"Molotov",
+				"Decoy",
+				"Incendiary",
+				"C4",
+				"none",
+				"none",
+				"none",
+				"none",
+				"none",
+				"none",
+				"none",
+				"Medi-Shot",
+				"none",
+				"Knife",
+				"M4A1-S",
+				"USP-S",
+				"none",
+				"CZ75A",
+				"R8 Revolver",
+				"none",
+				"none",
+				"none",
+				"Tactical Grenade",
+				"Hands",
+				"Breach Charge",
+				"none",
+				"Tablet",
+				"none",
+				"Knife",
+				"Axe",
+				"Hammer",
+				"none",
+				"Wrench",
+				"none",
+				"Spectral Shiv",
+				"Fire Bomb",
+				"Diversion Device",
+				"Frag Grenade",
 			};
 
-			if ( player->get_weapon( ) && player->get_weapon( )->weapon_id( ) > -1 ) {
-				ImGui::PushFont( icons ? font_icons : font_indicator );
+			STR_ENCRYPT_END
 
-				auto text = item_names[ player->get_weapon( )->weapon_id( ) ];
-				auto icon = item_icons[ player->get_weapon( )->weapon_id( ) ];
+			if ( player->get_weapon( ) ) {
+				auto weapon_id = player->get_weapon( )->weapon_id( );
 
-				if ( !text || !icon ) {
-					text = item_names[ 0 ];
-					icon = item_icons[ 0 ];
+				if ( weapon_id > -1 && weapon_id < 88 ) {
+					ImGui::PushFont( icons ? font_icons : font_indicator );
+
+					auto text = item_names[ weapon_id ];
+					auto icon = item_icons[ weapon_id ];
+
+					if ( !text || !icon ) {
+						text = item_names[ 0 ];
+						icon = item_icons[ 0 ];
+					}
+
+					auto text_size = ImGui::CalcTextSize( icons ? icon : text );
+					auto text_position =
+						ImVec2( box.first.x + ( box.first.z - box.first.x ) / 2 - ( text_size.x / 2 ), box.first.w + ( icons ? 2 : 0 ) );
+
+					draw_list->AddText( ImVec2( text_position.x + 1, text_position.y + 1 ),
+					                    ImGui::GetColorU32( ImVec4( 0.f, 0.f, 0.f, color.w - 0.5f ) ), icons ? icon : text );
+					draw_list->AddText( ImVec2( text_position.x - 1, text_position.y + 1 ),
+					                    ImGui::GetColorU32( ImVec4( 0.f, 0.f, 0.f, color.w - 0.5f ) ), icons ? icon : text );
+					draw_list->AddText( ImVec2( text_position.x + 1, text_position.y - 1 ),
+					                    ImGui::GetColorU32( ImVec4( 0.f, 0.f, 0.f, color.w - 0.5f ) ), icons ? icon : text );
+					draw_list->AddText( ImVec2( text_position.x - 1, text_position.y - 1 ),
+					                    ImGui::GetColorU32( ImVec4( 0.f, 0.f, 0.f, color.w - 0.5f ) ), icons ? icon : text );
+
+					draw_list->AddText( ImVec2( text_position.x, text_position.y + 1 ), ImGui::GetColorU32( ImVec4( 0.f, 0.f, 0.f, color.w - 0.5f ) ),
+					                    icons ? icon : text );
+					draw_list->AddText( ImVec2( text_position.x, text_position.y + 1 ), ImGui::GetColorU32( ImVec4( 0.f, 0.f, 0.f, color.w - 0.5f ) ),
+					                    icons ? icon : text );
+					draw_list->AddText( ImVec2( text_position.x + 1, text_position.y ), ImGui::GetColorU32( ImVec4( 0.f, 0.f, 0.f, color.w - 0.5f ) ),
+					                    icons ? icon : text );
+					draw_list->AddText( ImVec2( text_position.x - 1, text_position.y ), ImGui::GetColorU32( ImVec4( 0.f, 0.f, 0.f, color.w - 0.5f ) ),
+					                    icons ? icon : text );
+
+					draw_list->AddText( text_position, ImGui::GetColorU32( color ), icons ? icon : text );
+
+					ImGui::PopFont( );
 				}
-
-				auto text_size     = ImGui::CalcTextSize( icons ? icon : text );
-				auto text_position = ImVec2( box.first.x + ( box.first.z - box.first.x ) / 2 - ( text_size.x / 2 ), box.first.w + ( icons ? 2 : 0 ) );
-
-				draw_list->AddText( ImVec2( text_position.x + 1, text_position.y + 1 ), ImGui::GetColorU32( ImVec4( 0.f, 0.f, 0.f, color.w - 0.5f ) ),
-				                    icons ? icon : text );
-				draw_list->AddText( ImVec2( text_position.x - 1, text_position.y + 1 ), ImGui::GetColorU32( ImVec4( 0.f, 0.f, 0.f, color.w - 0.5f ) ),
-				                    icons ? icon : text );
-				draw_list->AddText( ImVec2( text_position.x + 1, text_position.y - 1 ), ImGui::GetColorU32( ImVec4( 0.f, 0.f, 0.f, color.w - 0.5f ) ),
-				                    icons ? icon : text );
-				draw_list->AddText( ImVec2( text_position.x - 1, text_position.y - 1 ), ImGui::GetColorU32( ImVec4( 0.f, 0.f, 0.f, color.w - 0.5f ) ),
-				                    icons ? icon : text );
-
-				draw_list->AddText( ImVec2( text_position.x, text_position.y + 1 ), ImGui::GetColorU32( ImVec4( 0.f, 0.f, 0.f, color.w - 0.5f ) ),
-				                    icons ? icon : text );
-				draw_list->AddText( ImVec2( text_position.x, text_position.y + 1 ), ImGui::GetColorU32( ImVec4( 0.f, 0.f, 0.f, color.w - 0.5f ) ),
-				                    icons ? icon : text );
-				draw_list->AddText( ImVec2( text_position.x + 1, text_position.y ), ImGui::GetColorU32( ImVec4( 0.f, 0.f, 0.f, color.w - 0.5f ) ),
-				                    icons ? icon : text );
-				draw_list->AddText( ImVec2( text_position.x - 1, text_position.y ), ImGui::GetColorU32( ImVec4( 0.f, 0.f, 0.f, color.w - 0.5f ) ),
-				                    icons ? icon : text );
-
-				draw_list->AddText( text_position, ImGui::GetColorU32( color ), icons ? icon : text );
-
-				ImGui::PopFont( );
 			}
 		}
 
-		if ( *g_config.find< bool >( __( "visuals_health_bars" ) ) ) {
-			auto color_rgb = *g_config.find< ImVec4 >( __( "visuals_health_bars_color" ) );
-			ImVec4 color_hsv{ 0.f, 0.f, 0.f, color_rgb.w };
+		if ( *g_config.find< bool >( _hash( "visuals_health_bars" ) ) ) {
+			if ( player->health( ) > 0.f ) {
+				auto color_rgb = *g_config.find< ImVec4 >( _hash( "visuals_health_bars_color" ) );
+				ImVec4 color_hsv{ 0.f, 0.f, 0.f, color_rgb.w };
 
-			ImGui::ColorConvertRGBtoHSV( color_rgb.x, color_rgb.y, color_rgb.z, color_hsv.x, color_hsv.y, color_hsv.z );
+				ImGui::ColorConvertRGBtoHSV( color_rgb.x, color_rgb.y, color_rgb.z, color_hsv.x, color_hsv.y, color_hsv.z );
 
-			auto health_percent       = -( static_cast< float >( player->health( ) ) / 100.f ) + 1.f;
-			auto health_bar_position  = ImVec2( box.first.x - 2, box.first.y + ( box.first.z - box.first.x ) * health_percent );
-			auto health_bar_hsv_color = ImVec4( color_hsv.x - ( 0.3f * health_percent ), color_hsv.y, color_hsv.z, color_hsv.w );
+				auto health_percent       = -( static_cast< float >( player->health( ) ) / 100.f ) + 1.f;
+				auto health_bar_position  = ImVec2( box.first.x - 2, box.first.y + ( box.first.z - box.first.x ) * health_percent );
+				auto health_bar_hsv_color = ImVec4( color_hsv.x - ( 0.3f * health_percent ), color_hsv.y, color_hsv.z, color_hsv.w );
 
-			ImVec4 color_health_rgb{ 0.f, 0.f, 0.f, color_rgb.w };
+				ImVec4 color_health_rgb{ 0.f, 0.f, 0.f, color_rgb.w };
 
-			ImGui::ColorConvertHSVtoRGB( health_bar_hsv_color.x, health_bar_hsv_color.y, health_bar_hsv_color.z, color_health_rgb.x,
-			                             color_health_rgb.y, color_health_rgb.z );
+				ImGui::ColorConvertHSVtoRGB( health_bar_hsv_color.x, health_bar_hsv_color.y, health_bar_hsv_color.z, color_health_rgb.x,
+				                             color_health_rgb.y, color_health_rgb.z );
 
-			draw_list->AddRectFilled( ImVec2( health_bar_position.x - 4, box.first.y - 1 ), ImVec2( health_bar_position.x, box.first.w + 1 ),
-			                          ImGui::GetColorU32( ImVec4( 0.f, 0.f, 0.f, color_rgb.w - 0.5f ) ) );
-			draw_list->AddRectFilled( ImVec2( health_bar_position.x - 3, health_bar_position.y ), ImVec2( health_bar_position.x - 1, box.first.w ),
-			                          ImGui::GetColorU32( color_health_rgb ) );
+				draw_list->AddRectFilled( ImVec2( health_bar_position.x - 4, box.first.y - 1 ), ImVec2( health_bar_position.x, box.first.w + 1 ),
+				                          ImGui::GetColorU32( ImVec4( 0.f, 0.f, 0.f, color_rgb.w - 0.5f ) ) );
+				draw_list->AddRectFilled( ImVec2( health_bar_position.x - 3, health_bar_position.y ),
+				                          ImVec2( health_bar_position.x - 1, box.first.w ), ImGui::GetColorU32( color_health_rgb ) );
+			}
 		}
 	}
 

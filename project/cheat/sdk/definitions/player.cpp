@@ -57,7 +57,7 @@ bool sdk::player::spotted_by_mask( )
 
 sdk::player_info sdk::player::player_info( )
 {
-	static auto engine_dll = driver::base_address( __( "engine.dll" ) );
+	static auto engine_dll = driver::base_address( _hash( "engine.dll" ) );
 
 	auto client_state = driver::read< std::uint32_t >( reinterpret_cast< PVOID >( engine_dll + offsets::client_state ) );
 	auto user_info    = driver::read< std::uint32_t >( reinterpret_cast< PVOID >( client_state + offsets::client_state_player_info ) );
@@ -80,7 +80,7 @@ int sdk::player::health( )
 
 std::string_view sdk::player::competitive_rank( )
 {
-	static auto engine_dll = driver::base_address( __( "client.dll" ) );
+	static auto engine_dll = driver::base_address( _hash( "client.dll" ) );
 
 	auto resource = driver::read< std::uint32_t >( reinterpret_cast< PVOID >( engine_dll + offsets::player_resource ) );
 
