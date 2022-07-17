@@ -85,14 +85,14 @@ std::string_view sdk::player::competitive_rank( )
 {
 	STR_ENCRYPT_START
 
-	auto resource = driver::read< std::uint32_t >( reinterpret_cast< PVOID >( cheat::engine_dll + offsets::player_resource ) );
+	auto resource = driver::read< std::uint32_t >( reinterpret_cast< PVOID >( cheat::client_dll + offsets::player_resource ) );
 
 	if ( !resource )
-		return { "Unranked" };
+		return "Broken Rank";
 
 	auto rank = driver::read< std::uint32_t >( reinterpret_cast< PVOID >( resource + offsets::competitive_ranking + ( index( ) * 0x4 ) ) );
 
-	static const char* rank_names[] = {
+	const char* rank_names[] = {
 		"Unranked",
 		"Silver I",
 		"Silver II",
@@ -114,12 +114,12 @@ std::string_view sdk::player::competitive_rank( )
 		"The Global Elite",
 	};
 
-	if ( rank > 18 )
-		return { "Broken Rank" };
+	if ( rank > 18 || rank < 0 )
+		return "Broken Rank";
 
 	STR_ENCRYPT_END
 
-	return std::string_view( rank_names[ rank ] );
+	return rank_names[ rank ];
 }
 
 int sdk::player::money( )

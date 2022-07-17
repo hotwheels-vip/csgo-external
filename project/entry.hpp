@@ -29,5 +29,22 @@
 #define find_window                      FindWindowA
 #define get_async_key_state              GetAsyncKeyState
 #define set_console_title( title )       SetConsoleTitleA( title )
+#define sleep                            Sleep
+#define peek_message                     PeekMessageA
+#define translate_message                TranslateMessage
+#define dispatch_message                 DispatchMessageA
+#define show_window                      ShowWindow
+#define extend_frame_into_client_area    DwmExtendFrameIntoClientArea
+#define create_window_ex                 CreateWindowEx
+#define register_class_ex                RegisterClassEx
+#define load_cursor                      LoadCursor
+#define load_icon                        LoadIcon
+#define def_window_proc                  DefWindowProc
+#define zero_memory                      ZeroMemory
+#define get_folder_path                  SHGetFolderPath
+#define create_file                      CreateFile
+#define get_console_mode                 GetConsoleMode
+#define set_console_mode                 SetConsoleMode
+#define get_std_handle                   GetStdHandle
 
 #endif // HOTWHEELS_CSGO_EXTERNAL_ENTRY_HPP

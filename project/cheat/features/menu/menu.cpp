@@ -128,7 +128,7 @@ void menu::routine( float ease_animation )
 	ImGui::SetNextWindowPos( ImVec2( 10.f + ( 5.f + 175.f ) * current_position++ * ease_animation, 10 ) );
 	if ( ImGui::Begin( "Configs", nullptr, ImGuiWindowFlags_AlwaysAutoResize ) ) {
 		static CHAR my_documents[ MAX_PATH ]{ };
-		static HRESULT result = SHGetFolderPath( nullptr, CSIDL_PERSONAL, nullptr, SHGFP_TYPE_CURRENT, my_documents );
+		static HRESULT result = get_folder_path( nullptr, CSIDL_PERSONAL, nullptr, SHGFP_TYPE_CURRENT, my_documents );
 
 		if ( result == S_OK ) {
 			static std::string config_name{ };
@@ -220,7 +220,7 @@ void menu::routine( float ease_animation )
 				if ( !local_player )
 					continue;
 
-				if ( !player->player_info( ).name )
+				if ( player->player_info( ).name[ 0 ] == '\0' )
 					continue;
 
 				if ( player->competitive_rank( ).empty( ) )

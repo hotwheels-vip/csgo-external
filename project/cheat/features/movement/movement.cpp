@@ -26,6 +26,8 @@
 
 void movement::routine( )
 {
+	VM_TIGER_WHITE_START
+
 	while ( !cheat::requested_shutdown ) {
 		if ( *g_config.find< bool >( _hash( "movement_bunny_hop" ) ) ) {
 			if ( GetAsyncKeyState( VK_SPACE ) ) {
@@ -43,12 +45,12 @@ void movement::routine( )
 					if ( luck == 1 || !*g_config.find< bool >( _hash( "movement_bunny_hop_error" ) ) ) {
 						driver::write< int >( reinterpret_cast< void* >( cheat::client_dll + offsets::force_jump ), 4 );
 
-						Sleep( 50 );
+						sleep( 50 );
 
 						continue;
 					}
 
-					Sleep( delay );
+					std::this_thread::sleep_for( std::chrono::milliseconds( delay ) ); // themida fuckery sorry
 
 					driver::write< int >( reinterpret_cast< void* >( cheat::client_dll + offsets::force_jump ), 6 );
 				} else {
@@ -57,6 +59,8 @@ void movement::routine( )
 			}
 		}
 
-		std::this_thread::sleep_for( std::chrono::milliseconds( 1 ) );
+		sleep( 1 );
 	}
+
+	VM_TIGER_WHITE_END
 }

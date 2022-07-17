@@ -37,10 +37,12 @@ void cheat::init( )
 		if ( process_id )
 			break;
 
-		std::this_thread::sleep_for( std::chrono::seconds( 1 ) );
+		sleep( 1000 );
 	}
 
-	Sleep( 1000 );
+	window_id = process_id;
+
+	sleep( 1000 );
 
 	driver::init( reinterpret_cast< handle >( process_id ) );
 
@@ -48,7 +50,7 @@ void cheat::init( )
 		if ( driver::base_address( _hash( "serverbrowser.dll" ) ) )
 			break;
 
-		Sleep( 1000 );
+		sleep( 1000 );
 	}
 
 	client_dll = driver::base_address( _hash( "client.dll" ) );
@@ -74,10 +76,12 @@ void cheat::init( )
 
 			last_directory = read_map;
 
-			console::log< fmt::color::light_pink >( "[BSP] Map loaded: {}", read_map );
+			std::string file_name = last_directory.substr( last_directory.find_last_of( "\\/" ) + 1 );
+
+			console::log< fmt::color::light_pink >( "[BSP] Map loaded {}", file_name );
 		}
 
-		Sleep( 1 );
+		sleep( 1 );
 	}
 
 	requested_shutdown = true;

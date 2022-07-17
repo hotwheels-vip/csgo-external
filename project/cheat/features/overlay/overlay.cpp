@@ -30,7 +30,8 @@ bool create_device( HWND window_handle )
 {
 	// Setup swap chain
 	DXGI_SWAP_CHAIN_DESC sd;
-	ZeroMemory( &sd, sizeof( sd ) );
+	zero_memory( &sd, sizeof( sd ) );
+
 	sd.BufferCount                        = 2;
 	sd.BufferDesc.Width                   = 0;
 	sd.BufferDesc.Height                  = 0;
@@ -52,7 +53,7 @@ bool create_device( HWND window_handle )
 		D3D_FEATURE_LEVEL_11_0,
 		D3D_FEATURE_LEVEL_10_0,
 	};
-	if ( D3D11CreateDeviceAndSwapChain( NULL, D3D_DRIVER_TYPE_HARDWARE, NULL, createDeviceFlags, featureLevelArray, 2, D3D11_SDK_VERSION, &sd,
+	if ( D3D11CreateDeviceAndSwapChain( nullptr, D3D_DRIVER_TYPE_HARDWARE, nullptr, createDeviceFlags, featureLevelArray, 2, D3D11_SDK_VERSION, &sd,
 	                                    &overlay::swap_chain, &overlay::device, &featureLevel, &overlay::device_context ) != S_OK )
 		return false;
 
@@ -78,7 +79,7 @@ LRESULT WINAPI wnd_proc( HWND window, UINT message, WPARAM parameter, LPARAM lon
 		return 0;
 	}
 
-	return DefWindowProc( window, message, parameter, long_parameter );
+	return def_window_proc( window, message, parameter, long_parameter );
 }
 
 void overlay::init( )
@@ -90,17 +91,17 @@ void overlay::init( )
 	wnd_class.cbSize        = sizeof( WNDCLASSEX );
 	wnd_class.cbClsExtra    = NULL;
 	wnd_class.cbWndExtra    = NULL;
-	wnd_class.hCursor       = LoadCursor( 0, IDC_ARROW );
-	wnd_class.hIcon         = LoadIcon( 0, IDI_APPLICATION );
-	wnd_class.hIconSm       = LoadIcon( 0, IDI_APPLICATION );
-	wnd_class.hbrBackground = ( HBRUSH )CreateSolidBrush( RGB( 0, 0, 0 ) );
-	wnd_class.hInstance     = GetModuleHandle( NULL );
+	wnd_class.hCursor       = load_cursor( nullptr, IDC_ARROW );
+	wnd_class.hIcon         = load_icon( nullptr, IDI_APPLICATION );
+	wnd_class.hIconSm       = load_icon( nullptr, IDI_APPLICATION );
+	wnd_class.hbrBackground = reinterpret_cast< HBRUSH >( CreateSolidBrush( RGB( 0, 0, 0 ) ) );
+	wnd_class.hInstance     = get_module_handle( nullptr );
 	wnd_class.lpfnWndProc   = wnd_proc;
 	wnd_class.lpszClassName = "Hotwheels001";
 	wnd_class.lpszMenuName  = "Hotwheels Overlay";
 	wnd_class.style         = CS_VREDRAW | CS_HREDRAW;
 
-	RegisterClassEx( &wnd_class );
+	register_class_ex( &wnd_class );
 
 	RECT desktop_size;
 
@@ -110,19 +111,19 @@ void overlay::init( )
 	screen_w = desktop_size.right;
 	screen_h = desktop_size.bottom;
 
-	HWND window_handle = CreateWindowEx( WS_EX_TOPMOST | WS_EX_TRANSPARENT | WS_EX_TOOLWINDOW, wnd_class.lpszClassName, "", WS_POPUP, 0, 0, screen_w,
-	                                     screen_h, nullptr, nullptr, nullptr, nullptr );
+	HWND window_handle = create_window_ex( WS_EX_TOPMOST | WS_EX_TRANSPARENT | WS_EX_TOOLWINDOW, wnd_class.lpszClassName, "", WS_POPUP, 0, 0,
+	                                       screen_w, screen_h, nullptr, nullptr, nullptr, nullptr );
 
 	SetLayeredWindowAttributes( window_handle, 0, 255, LWA_ALPHA );
 	SetLayeredWindowAttributes( window_handle, RGB( 0, 0, 0 ), 0, ULW_COLORKEY );
 
 	MARGINS margin = { 0, screen_w, 0, screen_h };
 
-	DwmExtendFrameIntoClientArea( window_handle, &margin );
+	extend_frame_into_client_area( window_handle, &margin );
 
 	bool created = create_device( window_handle );
 
-	ShowWindow( window_handle, SW_SHOWNORMAL );
+	show_window( window_handle, SW_SHOWNORMAL );
 
 	IMGUI_CHECKVERSION( );
 	ImGui::CreateContext( );
@@ -231,9 +232,9 @@ void overlay::init( )
 
 		MSG message;
 
-		while ( PeekMessage( &message, window_handle, 0, 0, PM_REMOVE ) ) {
-			TranslateMessage( &message );
-			DispatchMessage( &message );
+		while ( peek_message( &message, window_handle, 0, 0, PM_REMOVE ) ) {
+			translate_message( &message );
+			dispatch_message( &message );
 		}
 
 		if ( GetAsyncKeyState( VK_INSERT ) & 1 ) {
@@ -281,7 +282,7 @@ void overlay::init( )
 
 		ImGui::PopStyleVar( );
 
-		SetWindowLong( window_handle, GWL_EXSTYLE, WS_EX_TOPMOST | WS_EX_TRANSPARENT | WS_EX_TOOLWINDOW | ( open ? 0 : WS_EX_LAYERED ) );
+		set_window_long( window_handle, GWL_EXSTYLE, WS_EX_TOPMOST | WS_EX_TRANSPARENT | WS_EX_TOOLWINDOW | ( open ? 0 : WS_EX_LAYERED ) );
 
 		ImGui::EndFrame( );
 
@@ -294,7 +295,7 @@ void overlay::init( )
 
 		swap_chain->Present( 0, 0 );
 
-		std::this_thread::sleep_for( std::chrono::milliseconds( static_cast< int >( 1.f / 400.f * 1000.f ) ) );
+		sleep( static_cast< int >( 1.f / 400.f * 1000.f ) );
 	}
 
 	VM_TIGER_WHITE_END
