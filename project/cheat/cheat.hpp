@@ -8,6 +8,7 @@
 #include <Windows.h>
 #include <functional>
 #include <iostream>
+#include <valve-bsp-parser/bsp_parser.hpp>
 
 #include "../entry.hpp"
 
@@ -18,6 +19,8 @@ namespace cheat
 	inline hmodule module_handle{ };
 	inline std::uint64_t engine_dll{ };
 	inline std::uint64_t client_dll{ };
+
+	inline rn::bsp_parser bsp_parser{ };
 
 	void init( );
 } // namespace cheat

@@ -139,9 +139,8 @@ void visuals::routine( )
 		if ( player->dormant( ) )
 			continue;
 
-		// Not doing parsing.
-		//		if ( !player->spotted_by_mask( ) )
-		//			continue;
+		if ( !player->visible( ) && *g_config.find< bool >( _hash( "visuals_visible" ) ) )
+			continue;
 
 		auto box = calculate_box( player );
 
@@ -181,33 +180,33 @@ void visuals::routine( )
 			auto color = *g_config.find< ImVec4 >( _hash( "visuals_weapons_color" ) );
 			auto icons = *g_config.find< bool >( _hash( "visuals_weapons_icons" ) );
 
-			const char* item_icons[] = { "`", // 0 - default
-				                         "B",    "C",    "D",    "E",    "none", "none", "F",    "G",    "H",
+			static const char* item_icons[] = { "`", // 0 - default
+				                                "B",    "C",    "D",    "E",    "none", "none", "F",    "G",    "H",
 
-				                         "I", // 10
-				                         "J",    "none", "K",    "L",    "none", "M",    "N",    "none", "O",
+				                                "I", // 10
+				                                "J",    "none", "K",    "L",    "none", "M",    "N",    "none", "O",
 
-				                         "none", // 20
-				                         "none", "none", "z",    "P",    "Q",    "R",    "S",    "T",    "U",
+				                                "none", // 20
+				                                "none", "none", "z",    "P",    "Q",    "R",    "S",    "T",    "U",
 
-				                         "V", // 30
-				                         "W",    "\\",   "Y",    "Z",    "[",    "X",    "none", "]",    "^",
+				                                "V", // 30
+				                                "W",    "\\",   "Y",    "Z",    "[",    "X",    "none", "]",    "^",
 
-				                         "_", // 40
-				                         "`",    "`",    "a",    "b",    "c",    "d",    "e",    "f",    "g",
+				                                "_", // 40
+				                                "`",    "`",    "a",    "b",    "c",    "d",    "e",    "f",    "g",
 
-				                         "none", // 50
-				                         "none", "none", "none", "none", "none", "none", "0",    "none", "k",
+				                                "none", // 50
+				                                "none", "none", "none", "none", "none", "none", "0",    "none", "k",
 
-				                         "l", // 60
-				                         "m",    "none", "n",    "o",
+				                                "l", // 60
+				                                "m",    "none", "n",    "o",
 
-				                         "none", "none", "none", "none",
+				                                "none", "none", "none", "none",
 
-				                         "none", // 69
-				                         "1",    "none", "2",    "none", "k",    "3",    "4",    "none", "5", "none", "none", "d", "e", "b" };
+				                                "none", // 69
+				                                "1",    "none", "2",    "none", "k",    "3",    "4",    "none", "5", "none", "none", "d", "e", "b" };
 
-			const char* item_names[] = {
+			static const char* item_names[] = {
 				"Knife",
 				"Deagle",
 				"Dual Berettas",

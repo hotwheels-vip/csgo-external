@@ -71,6 +71,9 @@ void config::impl::load( std::string path )
 	stream.close( );
 
 	for ( auto& setting : settings ) {
+		if ( !reader.contains( std::to_string( setting.first ) ) )
+			continue;
+
 		switch ( setting.second.type ) {
 		case variable_type::VARIABLE_BOOL:
 			setting.second.bool_value = reader[ std::to_string( setting.first ) ];
@@ -120,6 +123,7 @@ void config::impl::init( )
 	insert( _hash( "aimbot_rcs_smooth" ), 0.f );
 	insert( _hash( "aimbot_rcs_error" ), true );
 
+	insert( _hash( "visuals_visible" ), false );
 	insert( _hash( "visuals_boxes" ), false );
 	insert( _hash( "visuals_boxes_color" ), ImVec4( 1.f, 1.f, 1.f, 1.f ) );
 	insert( _hash( "visuals_names" ), false );

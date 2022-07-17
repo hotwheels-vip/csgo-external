@@ -13,6 +13,8 @@
 
 #include "../enums/life_state.hpp"
 
+#include <valve-bsp-parser/bsp_parser.hpp>
+
 namespace sdk
 {
 	struct player {
@@ -25,6 +27,7 @@ namespace sdk
 
 		bool dormant( );
 		bool spotted_by_mask( );
+		bool visible( );
 
 		sdk::weapon* get_weapon( );
 		sdk::weapon* get_weapon( int index );
@@ -40,6 +43,9 @@ namespace sdk
 		sdk::matrix_3x4 rgfl( );
 
 		sdk::vector aim_punch_angle( );
+		sdk::vector bone_position( int bone_index );
+		sdk::vector shoot_position( );
+		sdk::vector origin( );
 	};
 } // namespace sdk
 

@@ -4,6 +4,8 @@
 
 #include "cheat.hpp"
 
+#include "sdk/structs/offsets.hpp"
+
 #include "features/overlay/overlay.hpp"
 #include "helpers/configs/config.hpp"
 #include "helpers/console/console.hpp"
@@ -57,6 +59,24 @@ void cheat::init( )
 	std::thread thread_movement( &movement::routine );
 
 	while ( !get_async_key_state( VK_DELETE ) ) {
+		static auto client_state          = driver::read< std::uint32_t >( reinterpret_cast< PVOID >( engine_dll + offsets::client_state ) );
+		static std::string last_directory = { };
+
+		char read_map[ 128 ]{ };
+		char read_directory[ 128 ]{ };
+
+		driver::read( reinterpret_cast< PVOID >( client_state + offsets::client_state_map_directory ), &read_map, 128 );
+		driver::read( reinterpret_cast< PVOID >( engine_dll + offsets::game_dir ), &read_directory, 128 );
+
+		if ( last_directory.find( read_map ) == std::string::npos ) {
+			std::thread thread_bsp( &rn::bsp_parser::load_map, &bsp_parser, read_directory, read_map );
+			thread_bsp.join( );
+
+			last_directory = read_map;
+
+			console::log< fmt::color::light_pink >( "[BSP] Map loaded: {}", read_map );
+		}
+
 		Sleep( 1 );
 	}
 

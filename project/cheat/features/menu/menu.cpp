@@ -53,6 +53,8 @@ void menu::routine( float ease_animation )
 	ImGui::SetNextWindowSize( ImVec2( 175, 0 ) );
 	ImGui::SetNextWindowPos( ImVec2( 10.f + ( 5.f + 175.f ) * current_position++ * ease_animation, 10 ) );
 	if ( ImGui::Begin( "Visuals", nullptr, ImGuiWindowFlags_AlwaysAutoResize ) ) {
+		ImGui::Checkbox( "Visible Only", g_config.find< bool >( _hash( "visuals_visible" ) ) );
+
 		ImGui::Checkbox( "Boxes", g_config.find< bool >( _hash( "visuals_boxes" ) ) );
 		ImGui::SameLine( );
 
