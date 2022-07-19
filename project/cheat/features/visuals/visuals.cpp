@@ -98,8 +98,8 @@ void visuals::routine( )
 			float x1 = overlay::screen_w / 2.f;
 			float y1 = overlay::screen_h / 2.f;
 
-			float x2 = overlay::screen_w / static_cast< float >( local_player->default_fov( ) );
-			float y2 = overlay::screen_h / static_cast< float >( local_player->default_fov( ) );
+			float x2 = overlay::screen_w / static_cast< float >( local_player->default_fov( ) + 3 );
+			float y2 = overlay::screen_h / static_cast< float >( local_player->default_fov( ) + 1 );
 
 			x1 -= x2 * punch_angle.y;
 			y1 += y2 * punch_angle.x;
@@ -344,7 +344,7 @@ void visuals::routine( )
 				ImGui::ColorConvertRGBtoHSV( color_rgb.x, color_rgb.y, color_rgb.z, color_hsv.x, color_hsv.y, color_hsv.z );
 
 				auto health_percent       = -( static_cast< float >( player->health( ) ) / 100.f ) + 1.f;
-				auto health_bar_position  = ImVec2( box.first.x - 2, box.first.y + ( box.first.z - box.first.x ) * health_percent );
+				auto health_bar_position  = ImVec2( box.first.x - 2, box.first.y + ( box.first.w - box.first.y ) * health_percent );
 				auto health_bar_hsv_color = ImVec4( color_hsv.x - ( 0.3f * health_percent ), color_hsv.y, color_hsv.z, color_hsv.w );
 
 				ImVec4 color_health_rgb{ 0.f, 0.f, 0.f, color_rgb.w };

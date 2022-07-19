@@ -799,7 +799,7 @@ bool bsp_parser::is_visible(
     valve::trace_t trace{};
     trace_ray( origin, destination, &trace );
 
-    return !( trace.fraction < 1.f );
+    return trace.fraction >= .98f;
 }
 
 void bsp_parser::trace_ray(

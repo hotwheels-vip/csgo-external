@@ -30,7 +30,7 @@ void movement::routine( )
 
 	while ( !cheat::requested_shutdown ) {
 		if ( *g_config.find< bool >( _hash( "movement_bunny_hop" ) ) ) {
-			if ( GetAsyncKeyState( VK_SPACE ) ) {
+			if ( get_async_key_state( VK_SPACE ) && get_foreground_window( ) == cheat::window_handle ) {
 				auto luck  = rand( ) % 17 + 1; // Add 1 to prevent C0000094
 				auto delay = *g_config.find< int >( _hash( "movement_bunny_hop_delay" ) ) % luck;
 

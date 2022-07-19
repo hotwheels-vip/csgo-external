@@ -22,6 +22,8 @@
 
 void aimbot::routine( )
 {
+	VM_TIGER_WHITE_START
+
 	static sdk::vector last_aim_punch{ };
 
 	while ( !cheat::requested_shutdown ) {
@@ -42,9 +44,9 @@ void aimbot::routine( )
 		sdk::vector adjusted_angles = { aim_punch.x * ( *g_config.find< float >( _hash( "aimbot_rcs_y" ) ) / 100.f ),
 			                            aim_punch.y * ( *g_config.find< float >( _hash( "aimbot_rcs_x" ) ) / 100.f ) };
 
-		if ( GetAsyncKeyState( VK_LBUTTON ) ) {
-			auto random_x = static_cast< float >( rand( ) + 1 % 10 );
-			auto random_y = static_cast< float >( rand( ) + 1 % 10 ) - 5.f;
+		if ( get_async_key_state( VK_LBUTTON ) && get_foreground_window( ) == cheat::window_handle ) {
+			auto random_x = static_cast< float >( ( rand( ) + 1 ) % 10 );
+			auto random_y = static_cast< float >( ( rand( ) + 1 ) % 10 ) - 5.f;
 
 			sdk::vector random_angles = { random_x / 100.f, random_y / 100.f };
 
@@ -70,4 +72,8 @@ void aimbot::routine( )
 
 		sleep( 1 );
 	}
+
+	VM_TIGER_WHITE_END
+
+	cheat::module_handle = NULL;
 }

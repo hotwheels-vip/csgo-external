@@ -40,7 +40,7 @@ void cheat::init( )
 		sleep( 1000 );
 	}
 
-	window_id = process_id;
+	window_handle = find_window( "Valve001", nullptr );
 
 	sleep( 1000 );
 
