@@ -15,7 +15,7 @@ bool win_api dll_main( hinstance module_handle, std::uintptr_t call_reason, void
 		set_console_title( "hotwheels.vip | csgo-external" );
 
 		cheat::module_handle = module_handle;
-		
+
 		close_handle( create_thread( cheat::init ) );
 	}
 
