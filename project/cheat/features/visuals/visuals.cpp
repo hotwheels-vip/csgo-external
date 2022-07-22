@@ -19,6 +19,8 @@
 #include "../../../dependencies/xor/xor.hpp"
 #include "../../cheat.hpp"
 
+#include "../grenades/grenades.hpp"
+
 std::pair< ImVec4, bool > calculate_box( sdk::player* player )
 {
 	auto client_state = driver::read< std::uint32_t >( reinterpret_cast< PVOID >( cheat::engine_dll + offsets::client_state ) );
@@ -361,6 +363,8 @@ void visuals::routine( )
 	}
 
 	ImGui::GetBackgroundDrawList( )->Flags |= ImDrawListFlags_AntiAliasedLines;
+
+	grenades::render( );
 
 	VM_TIGER_WHITE_END
 }

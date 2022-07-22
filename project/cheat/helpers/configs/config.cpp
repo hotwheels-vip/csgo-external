@@ -4,8 +4,11 @@
 
 #include "config.hpp"
 #include "../../../dependencies/themida/include/ThemidaSDK.h"
+#include "../../features/grenades/grenades.hpp"
 #include "../console/console.hpp"
 
+#include <ShlObj.h>
+#include <Windows.h>
 #include <fstream>
 
 void config::impl::save( std::string path )
@@ -143,4 +146,32 @@ void config::impl::init( )
 	insert( _hash( "movement_bunny_hop" ), false );
 	insert( _hash( "movement_bunny_hop_delay" ), 0 );
 	insert( _hash( "movement_bunny_hop_error" ), false );
+
+	static CHAR my_documents[ MAX_PATH ]{ };
+	static HRESULT result = get_folder_path( nullptr, CSIDL_PERSONAL, nullptr, SHGFP_TYPE_CURRENT, my_documents );
+
+	using namespace nlohmann;
+
+	json reader{ };
+
+	std::ifstream stream( "C:\\Users\\liga\\Documents\\hotwheels\\default.nades" );
+
+	if ( !stream )
+		return;
+
+	stream >> reader;
+
+	stream.close( );
+
+	for ( auto& grenade : reader[ "GRENADES" ] ) {
+		grenades::grenade_info grenade_info{ };
+
+		grenade_info.name     = grenade[ "name" ];
+		grenade_info.angle    = { grenade[ "pitch" ].get< float >( ), grenade[ "yaw" ].get< float >( ) };
+		grenade_info.position = { grenade[ "x" ].get< float >( ), grenade[ "y" ].get< float >( ), grenade[ "z" ].get< float >( ) - 65.f };
+
+		grenades::grenade_list[ grenade[ "map" ] ][ grenade[ "grenade_type" ] ].push_back( grenade_info );
+
+		console::log< fmt::color::light_pink >( "[CONFIG] Loaded grenade {}", grenade_info.name );
+	}
 }
