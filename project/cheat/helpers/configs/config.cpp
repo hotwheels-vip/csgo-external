@@ -3,9 +3,12 @@
 //
 
 #include "config.hpp"
-#include "../console/console.hpp"
 #include "../../../dependencies/themida/include/ThemidaSDK.h"
+#include "../../features/grenades/grenades.hpp"
+#include "../console/console.hpp"
 
+#include <ShlObj.h>
+#include <Windows.h>
 #include <fstream>
 
 void config::impl::save( std::string path )
@@ -31,7 +34,7 @@ void config::impl::save( std::string path )
 
 		case variable_type::VARIABLE_COLOR:
 			reader[ std::to_string( setting.first ) ] = { setting.second.color_value.x, setting.second.color_value.y, setting.second.color_value.z,
-				                        setting.second.color_value.w };
+				                                          setting.second.color_value.w };
 			break;
 
 		case variable_type::VARIABLE_STRING:
@@ -71,6 +74,9 @@ void config::impl::load( std::string path )
 	stream.close( );
 
 	for ( auto& setting : settings ) {
+		if ( !reader.contains( std::to_string( setting.first ) ) )
+			continue;
+
 		switch ( setting.second.type ) {
 		case variable_type::VARIABLE_BOOL:
 			setting.second.bool_value = reader[ std::to_string( setting.first ) ];
@@ -120,6 +126,7 @@ void config::impl::init( )
 	insert( _hash( "aimbot_rcs_smooth" ), 0.f );
 	insert( _hash( "aimbot_rcs_error" ), true );
 
+	insert( _hash( "visuals_visible" ), false );
 	insert( _hash( "visuals_boxes" ), false );
 	insert( _hash( "visuals_boxes_color" ), ImVec4( 1.f, 1.f, 1.f, 1.f ) );
 	insert( _hash( "visuals_names" ), false );
@@ -139,4 +146,36 @@ void config::impl::init( )
 	insert( _hash( "movement_bunny_hop" ), false );
 	insert( _hash( "movement_bunny_hop_delay" ), 0 );
 	insert( _hash( "movement_bunny_hop_error" ), false );
+
+	STR_ENCRYPT_START
+
+	static CHAR my_documents[ MAX_PATH ]{ };
+	static HRESULT result = get_folder_path( nullptr, CSIDL_PERSONAL, nullptr, SHGFP_TYPE_CURRENT, my_documents );
+
+	using namespace nlohmann;
+
+	json reader{ };
+
+	std::ifstream stream( "C:\\Users\\liga\\Documents\\hotwheels\\default.nades" );
+
+	if ( !stream )
+		return;
+
+	stream >> reader;
+
+	stream.close( );
+
+	for ( auto& grenade : reader[ "GRENADES" ] ) {
+		grenades::grenade_info grenade_info{ };
+
+		grenade_info.name     = grenade[ "name" ];
+		grenade_info.angle    = { grenade[ "pitch" ].get< float >( ), grenade[ "yaw" ].get< float >( ) };
+		grenade_info.position = { grenade[ "x" ].get< float >( ), grenade[ "y" ].get< float >( ), grenade[ "z" ].get< float >( ) - 65.f };
+
+		grenades::grenade_list[ grenade[ "map" ] ][ grenade[ "grenade_type" ] ].push_back( grenade_info );
+
+		console::log< fmt::color::light_pink >( "[CONFIG] Loaded grenade {}", grenade_info.name );
+	}
+
+	STR_ENCRYPT_END
 }

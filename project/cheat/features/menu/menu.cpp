@@ -14,6 +14,7 @@
 #include "../../../dependencies/imgui/imgui.h"
 #include "../../../dependencies/themida/include/ThemidaSDK.h"
 #include "../../../dependencies/xor/xor.hpp"
+#include "../../cheat.hpp"
 #include "../../helpers/configs/config.hpp"
 #include "../../helpers/console/console.hpp"
 #include "../../helpers/driver/driver.hpp"
@@ -22,7 +23,7 @@
 
 void menu::routine( float ease_animation )
 {
-	STR_ENCRYPT_START
+	VM_TIGER_WHITE_START
 
 #ifdef _DEBUG
 	ImGui::ShowDemoWindow( );
@@ -52,6 +53,8 @@ void menu::routine( float ease_animation )
 	ImGui::SetNextWindowSize( ImVec2( 175, 0 ) );
 	ImGui::SetNextWindowPos( ImVec2( 10.f + ( 5.f + 175.f ) * current_position++ * ease_animation, 10 ) );
 	if ( ImGui::Begin( "Visuals", nullptr, ImGuiWindowFlags_AlwaysAutoResize ) ) {
+		ImGui::Checkbox( "Visible Only", g_config.find< bool >( _hash( "visuals_visible" ) ) );
+
 		ImGui::Checkbox( "Boxes", g_config.find< bool >( _hash( "visuals_boxes" ) ) );
 		ImGui::SameLine( );
 
@@ -113,9 +116,7 @@ void menu::routine( float ease_animation )
 	if ( ImGui::Begin( "Misc", nullptr, ImGuiWindowFlags_AlwaysAutoResize ) ) {
 		ImGui::Checkbox( "Smooth Open", g_config.find< bool >( _hash( "menu_open_smooth" ) ) );
 		if ( ImGui::Button( "Force Full Update" ) ) {
-			static auto engine_dll = driver::base_address( _hash( "engine.dll" ) );
-
-			auto client_state = driver::read< std::uint32_t >( reinterpret_cast< PVOID >( engine_dll + offsets::client_state ) );
+			auto client_state = driver::read< std::uint32_t >( reinterpret_cast< PVOID >( cheat::engine_dll + offsets::client_state ) );
 
 			driver::write< int >( reinterpret_cast< PVOID >( client_state + offsets::clientstate_delta_ticks ), -1 );
 		}
@@ -127,7 +128,7 @@ void menu::routine( float ease_animation )
 	ImGui::SetNextWindowPos( ImVec2( 10.f + ( 5.f + 175.f ) * current_position++ * ease_animation, 10 ) );
 	if ( ImGui::Begin( "Configs", nullptr, ImGuiWindowFlags_AlwaysAutoResize ) ) {
 		static CHAR my_documents[ MAX_PATH ]{ };
-		static HRESULT result = SHGetFolderPath( nullptr, CSIDL_PERSONAL, nullptr, SHGFP_TYPE_CURRENT, my_documents );
+		static HRESULT result = get_folder_path( nullptr, CSIDL_PERSONAL, nullptr, SHGFP_TYPE_CURRENT, my_documents );
 
 		if ( result == S_OK ) {
 			static std::string config_name{ };
@@ -219,7 +220,7 @@ void menu::routine( float ease_animation )
 				if ( !local_player )
 					continue;
 
-				if ( !player->player_info( ).name )
+				if ( player->player_info( ).name[ 0 ] == '\0' )
 					continue;
 
 				if ( player->competitive_rank( ).empty( ) )
@@ -272,5 +273,5 @@ void menu::routine( float ease_animation )
 		ImGui::End( );
 	}
 
-	STR_ENCRYPT_END
+	VM_TIGER_WHITE_END
 }

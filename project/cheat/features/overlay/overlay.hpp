@@ -2291,8 +2291,7 @@ namespace overlay
 	inline IDXGISwapChain* swap_chain{ };
 	inline ID3D11RenderTargetView* render_target_view{ };
 
-	void init( );
-	void shutdown( );
+	[[gnu::noinline]] void init( );
 } // namespace overlay
 
 #endif // HOTWHEELS_CSGO_EXTERNAL_OVERLAY_HPP

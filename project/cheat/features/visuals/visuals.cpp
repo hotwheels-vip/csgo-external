@@ -17,12 +17,13 @@
 #include "../../../dependencies/hash/hash.hpp"
 #include "../../../dependencies/themida/include/ThemidaSDK.h"
 #include "../../../dependencies/xor/xor.hpp"
+#include "../../cheat.hpp"
+
+#include "../grenades/grenades.hpp"
 
 std::pair< ImVec4, bool > calculate_box( sdk::player* player )
 {
-	static auto engine_dll = driver::base_address( _hash( "engine.dll" ) );
-
-	auto client_state = driver::read< std::uint32_t >( reinterpret_cast< PVOID >( engine_dll + offsets::client_state ) );
+	auto client_state = driver::read< std::uint32_t >( reinterpret_cast< PVOID >( cheat::engine_dll + offsets::client_state ) );
 
 	sdk::collideable* collideable{ };
 
@@ -81,6 +82,8 @@ std::pair< ImVec4, bool > calculate_box( sdk::player* player )
 
 void visuals::routine( )
 {
+	VM_TIGER_WHITE_START
+
 	ImGui::GetBackgroundDrawList( )->Flags &= ~ImDrawListFlags_AntiAliasedLines;
 
 	auto local_player = sdk::game::local_player( );
@@ -97,8 +100,8 @@ void visuals::routine( )
 			float x1 = overlay::screen_w / 2.f;
 			float y1 = overlay::screen_h / 2.f;
 
-			float x2 = overlay::screen_w / static_cast< float >( local_player->default_fov( ) );
-			float y2 = overlay::screen_h / static_cast< float >( local_player->default_fov( ) );
+			float x2 = overlay::screen_w / static_cast< float >( local_player->default_fov( ) + 3 );
+			float y2 = overlay::screen_h / static_cast< float >( local_player->default_fov( ) + 1 );
 
 			x1 -= x2 * punch_angle.y;
 			y1 += y2 * punch_angle.x;
@@ -138,9 +141,8 @@ void visuals::routine( )
 		if ( player->dormant( ) )
 			continue;
 
-		// Not doing parsing.
-		//		if ( !player->spotted_by_mask( ) )
-		//			continue;
+		if ( !player->visible( ) && *g_config.find< bool >( _hash( "visuals_visible" ) ) )
+			continue;
 
 		auto box = calculate_box( player );
 
@@ -180,35 +182,33 @@ void visuals::routine( )
 			auto color = *g_config.find< ImVec4 >( _hash( "visuals_weapons_color" ) );
 			auto icons = *g_config.find< bool >( _hash( "visuals_weapons_icons" ) );
 
-			STR_ENCRYPT_START
+			static const char* item_icons[] = { "`", // 0 - default
+				                                "B",    "C",    "D",    "E",    "none", "none", "F",    "G",    "H",
 
-			const char* item_icons[] = { "`", // 0 - default
-				                         "B",    "C",    "D",    "E",    "none", "none", "F",    "G",    "H",
+				                                "I", // 10
+				                                "J",    "none", "K",    "L",    "none", "M",    "N",    "none", "O",
 
-				                         "I", // 10
-				                         "J",    "none", "K",    "L",    "none", "M",    "N",    "none", "O",
+				                                "none", // 20
+				                                "none", "none", "z",    "P",    "Q",    "R",    "S",    "T",    "U",
 
-				                         "none", // 20
-				                         "none", "none", "z",    "P",    "Q",    "R",    "S",    "T",    "U",
+				                                "V", // 30
+				                                "W",    "\\",   "Y",    "Z",    "[",    "X",    "none", "]",    "^",
 
-				                         "V", // 30
-				                         "W",    "\\",   "Y",    "Z",    "[",    "X",    "none", "]",    "^",
+				                                "_", // 40
+				                                "`",    "`",    "a",    "b",    "c",    "d",    "e",    "f",    "g",
 
-				                         "_", // 40
-				                         "`",    "`",    "a",    "b",    "c",    "d",    "e",    "f",    "g",
+				                                "none", // 50
+				                                "none", "none", "none", "none", "none", "none", "0",    "none", "k",
 
-				                         "none", // 50
-				                         "none", "none", "none", "none", "none", "none", "0",    "none", "k",
+				                                "l", // 60
+				                                "m",    "none", "n",    "o",
 
-				                         "l", // 60
-				                         "m",    "none", "n",    "o",
+				                                "none", "none", "none", "none",
 
-				                         "none", "none", "none", "none",
+				                                "none", // 69
+				                                "1",    "none", "2",    "none", "k",    "3",    "4",    "none", "5", "none", "none", "d", "e", "b" };
 
-				                         "none", // 69
-				                         "1",    "none", "2",    "none", "k",    "3",    "4",    "none", "5", "none", "none", "d", "e", "b" };
-
-			const char* item_names[] = {
+			static const char* item_names[] = {
 				"Knife",
 				"Deagle",
 				"Dual Berettas",
@@ -295,8 +295,6 @@ void visuals::routine( )
 				"Frag Grenade",
 			};
 
-			STR_ENCRYPT_END
-
 			if ( player->get_weapon( ) ) {
 				auto weapon_id = player->get_weapon( )->weapon_id( );
 
@@ -348,7 +346,7 @@ void visuals::routine( )
 				ImGui::ColorConvertRGBtoHSV( color_rgb.x, color_rgb.y, color_rgb.z, color_hsv.x, color_hsv.y, color_hsv.z );
 
 				auto health_percent       = -( static_cast< float >( player->health( ) ) / 100.f ) + 1.f;
-				auto health_bar_position  = ImVec2( box.first.x - 2, box.first.y + ( box.first.z - box.first.x ) * health_percent );
+				auto health_bar_position  = ImVec2( box.first.x - 2, box.first.y + ( box.first.w - box.first.y ) * health_percent );
 				auto health_bar_hsv_color = ImVec4( color_hsv.x - ( 0.3f * health_percent ), color_hsv.y, color_hsv.z, color_hsv.w );
 
 				ImVec4 color_health_rgb{ 0.f, 0.f, 0.f, color_rgb.w };
@@ -365,4 +363,8 @@ void visuals::routine( )
 	}
 
 	ImGui::GetBackgroundDrawList( )->Flags |= ImDrawListFlags_AntiAliasedLines;
+
+	grenades::render( );
+
+	VM_TIGER_WHITE_END
 }

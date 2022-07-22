@@ -22,7 +22,7 @@ namespace sdk
 		char steam_id[ 20 ]{ };
 
 	private:
-		char pad_2[0x10];
+		char pad_2[ 0x10 ];
 
 	public:
 		unsigned int friends_id_32;

@@ -22,14 +22,9 @@
 
 void aimbot::routine( )
 {
-	STR_ENCRYPT_START
+	VM_TIGER_WHITE_START
 
-	static auto client_dll    = driver::base_address( _hash( "client.dll" ) );
-	static auto engine_dll    = driver::base_address( _hash( "engine.dll" ) );
-	static auto window_handle = FindWindowA( "Valve001", nullptr );
 	static sdk::vector last_aim_punch{ };
-
-	STR_ENCRYPT_END
 
 	while ( !cheat::requested_shutdown ) {
 		auto player = sdk::game::local_player( );
@@ -42,23 +37,25 @@ void aimbot::routine( )
 		if ( !current_weapon )
 			continue;
 
-		auto client_state = driver::read< std::uint32_t >( reinterpret_cast< void* >( engine_dll + offsets::client_state ) );
+		auto client_state = driver::read< std::uint32_t >( reinterpret_cast< void* >( cheat::engine_dll + offsets::client_state ) );
 		auto view_angles  = driver::read< sdk::vector >( reinterpret_cast< PVOID >( client_state + offsets::client_state_view_angles ) );
 		auto aim_punch    = player->aim_punch_angle( );
 
 		sdk::vector adjusted_angles = { aim_punch.x * ( *g_config.find< float >( _hash( "aimbot_rcs_y" ) ) / 100.f ),
 			                            aim_punch.y * ( *g_config.find< float >( _hash( "aimbot_rcs_x" ) ) / 100.f ) };
 
-		if ( GetAsyncKeyState( VK_LBUTTON ) && GetForegroundWindow( ) == window_handle ) {
-			sdk::vector random_angles = { static_cast< float >( ( rand( ) + 1 ) % 10 ) / 100.f,
-				                          static_cast< float >( ( ( rand( ) + 1 ) % 10 ) - 5.f ) / 100.f };
+		if ( get_async_key_state( VK_LBUTTON ) && get_foreground_window( ) == cheat::window_handle ) {
+			auto random_x = static_cast< float >( ( rand( ) + 1 ) % 10 );
+			auto random_y = static_cast< float >( ( rand( ) + 1 ) % 10 ) - 5.f;
+
+			sdk::vector random_angles = { random_x / 100.f, random_y / 100.f };
 
 			if ( aim_punch.is_zero( ) )
 				random_angles = { 0.f, 0.f };
 
 			if ( *g_config.find< bool >( _hash( "aimbot_rcs" ) ) ) {
 				if ( current_weapon->is_pistol( ) || current_weapon->is_sniper( ) || current_weapon->is_shotgun( ) ||
-				     current_weapon->weapon_id( ) == sdk::weapon_negev ) // Although there are those fully auto snipers, who really uses them >.<
+				     current_weapon->weapon_id( ) == sdk::weapon_negev ) // Although there are those fully auto snipers, who really uses them
 					continue;
 
 				auto corrected_angle = view_angles - ( adjusted_angles * 2 - last_aim_punch ) +
@@ -73,6 +70,10 @@ void aimbot::routine( )
 
 		last_aim_punch = adjusted_angles * 2;
 
-		Sleep( 1 );
+		sleep( 1 );
 	}
+
+	VM_TIGER_WHITE_END
+
+	cheat::module_handle = NULL;
 }

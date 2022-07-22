@@ -5,9 +5,11 @@
 #include "driver.hpp"
 #include "driver_binary.hpp"
 
+#include "../../../entry.hpp"
+
 #include "../../../dependencies/kdmapper/kdmapper.hpp"
-#include "../../../dependencies/xor/xor.hpp"
 #include "../../../dependencies/themida/include/ThemidaSDK.h"
+#include "../../../dependencies/xor/xor.hpp"
 
 #include "../console/console.hpp"
 
@@ -50,7 +52,7 @@ bool driver::init( HANDLE pid )
 	console::log< fmt::color::light_blue >( "[KDMAPPER] Unloaded Intel driver." );
 
 	if ( !device_handle ) {
-		device_handle = CreateFile( "\\\\.\\hotwheels", GENERIC_READ | GENERIC_WRITE, 0, NULL, OPEN_EXISTING, FILE_ATTRIBUTE_NORMAL, NULL );
+		device_handle = create_file( "\\\\.\\hotwheels", GENERIC_READ | GENERIC_WRITE, 0, NULL, OPEN_EXISTING, FILE_ATTRIBUTE_NORMAL, NULL );
 
 		if ( device_handle == INVALID_HANDLE_VALUE ) {
 			console::log< fmt::color::red >( "[LOG] Failed to open device! Error: {}", GetLastError( ) );

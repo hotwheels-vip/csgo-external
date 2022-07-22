@@ -4,6 +4,8 @@
 
 #include "cheat.hpp"
 
+#include "sdk/structs/offsets.hpp"
+
 #include "features/overlay/overlay.hpp"
 #include "helpers/configs/config.hpp"
 #include "helpers/console/console.hpp"
@@ -21,9 +23,9 @@
 
 void cheat::init( )
 {
-	console::log( "" ); // Still on first line.
+	VM_EAGLE_BLACK_START
 
-//	VM_EAGLE_BLACK_START
+	console::log( "" ); // Still on first line.
 
 	g_config.init( );
 
@@ -35,10 +37,12 @@ void cheat::init( )
 		if ( process_id )
 			break;
 
-		std::this_thread::sleep_for( std::chrono::seconds( 1 ) );
+		sleep( 1000 );
 	}
 
-	std::this_thread::sleep_for( std::chrono::seconds( 1 ) );
+	window_handle = find_window( "Valve001", nullptr );
+
+	sleep( 1000 );
 
 	driver::init( reinterpret_cast< handle >( process_id ) );
 
@@ -46,23 +50,43 @@ void cheat::init( )
 		if ( driver::base_address( _hash( "serverbrowser.dll" ) ) )
 			break;
 
-		std::this_thread::sleep_for( std::chrono::seconds( 1 ) );
+		sleep( 1000 );
 	}
 
-	// Fuck off operations
-	create_thread( overlay::init );
-	create_thread( movement::routine );
-	create_thread( aimbot::routine );
+	client_dll = driver::base_address( _hash( "client.dll" ) );
+	engine_dll = driver::base_address( _hash( "engine.dll" ) );
+
+	std::thread thread_overlay( &overlay::init );
+	std::thread thread_aimbot( &aimbot::routine );
+	std::thread thread_movement( &movement::routine );
 
 	while ( !get_async_key_state( VK_DELETE ) ) {
-		std::this_thread::sleep_for( std::chrono::milliseconds( 10 ) );
-	}
+		static auto client_state          = driver::read< std::uint32_t >( reinterpret_cast< PVOID >( engine_dll + offsets::client_state ) );
+		static std::string last_directory = { };
 
-//	VM_EAGLE_BLACK_END
+		char read_map[ 128 ]{ };
+		char read_directory[ 128 ]{ };
+
+		driver::read( reinterpret_cast< PVOID >( client_state + offsets::client_state_map_directory ), &read_map, 128 );
+		driver::read( reinterpret_cast< PVOID >( engine_dll + offsets::game_dir ), &read_directory, 128 );
+
+		if ( last_directory.find( read_map ) == std::string::npos ) {
+			std::thread thread_bsp( &rn::bsp_parser::load_map, &bsp_parser, read_directory, read_map );
+			thread_bsp.join( );
+
+			last_directory = read_map;
+
+			std::string file_name = last_directory.substr( last_directory.find_last_of( "\\/" ) + 1 );
+
+			console::log< fmt::color::light_pink >( "[BSP] Map loaded {}", file_name );
+		}
+
+		sleep( 1 );
+	}
 
 	requested_shutdown = true;
 
-	std::this_thread::sleep_for( std::chrono::seconds( 1 ) );
+	VM_EAGLE_BLACK_END
 
 	free_library_and_exit_thread( cheat::module_handle, 0 );
 }
