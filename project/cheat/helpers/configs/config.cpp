@@ -149,14 +149,21 @@ void config::impl::init( )
 
 	STR_ENCRYPT_START
 
-	static CHAR my_documents[ MAX_PATH ]{ };
-	static HRESULT result = get_folder_path( nullptr, CSIDL_PERSONAL, nullptr, SHGFP_TYPE_CURRENT, my_documents );
+	CHAR my_documents[ MAX_PATH ]{ };
+	HRESULT result = get_folder_path( nullptr, CSIDL_PERSONAL, nullptr, SHGFP_TYPE_CURRENT, my_documents );
+
+	if ( result != S_OK )
+		return;
 
 	using namespace nlohmann;
 
 	json reader{ };
 
-	std::ifstream stream( "C:\\Users\\liga\\Documents\\hotwheels\\default.nades" );
+	std::string path{ my_documents };
+	path += "\\hotwheels\\";
+	path += "default.nades";
+
+	std::ifstream stream( path );
 
 	if ( !stream )
 		return;
