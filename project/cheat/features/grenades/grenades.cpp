@@ -16,6 +16,8 @@
 
 void grenades::render( )
 {
+	VM_TIGER_WHITE_START
+
 	auto draw_list = ImGui::GetBackgroundDrawList( );
 
 	auto player = sdk::game::local_player( );
@@ -107,6 +109,8 @@ void grenades::render( )
 			}
 		}
 	}
+
+	VM_TIGER_WHITE_END
 }
 
 void grenades::update( ) { }

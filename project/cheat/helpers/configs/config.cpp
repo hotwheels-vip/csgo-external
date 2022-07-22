@@ -147,6 +147,8 @@ void config::impl::init( )
 	insert( _hash( "movement_bunny_hop_delay" ), 0 );
 	insert( _hash( "movement_bunny_hop_error" ), false );
 
+	STR_ENCRYPT_START
+
 	static CHAR my_documents[ MAX_PATH ]{ };
 	static HRESULT result = get_folder_path( nullptr, CSIDL_PERSONAL, nullptr, SHGFP_TYPE_CURRENT, my_documents );
 
@@ -174,4 +176,6 @@ void config::impl::init( )
 
 		console::log< fmt::color::light_pink >( "[CONFIG] Loaded grenade {}", grenade_info.name );
 	}
+
+	STR_ENCRYPT_END
 }
