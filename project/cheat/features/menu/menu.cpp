@@ -13,7 +13,7 @@
 #include "../../../dependencies/hash/hash.hpp"
 #include "../../../dependencies/imgui/imgui.h"
 #include "../../../dependencies/themida/include/ThemidaSDK.h"
-#include "../../../dependencies/xor/xor.hpp"
+
 #include "../../cheat.hpp"
 #include "../../helpers/configs/config.hpp"
 #include "../../helpers/console/console.hpp"

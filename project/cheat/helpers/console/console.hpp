@@ -7,7 +7,6 @@
 #include "../../../dependencies/fmt/core.h"
 
 #include "../../../dependencies/themida/include/ThemidaSDK.h"
-#include "../../../dependencies/xor/xor.hpp"
 
 #include <Windows.h>
 #include <iostream>

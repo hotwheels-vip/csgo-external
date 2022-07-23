@@ -10,7 +10,7 @@
 #include "../../sdk/structs/offsets.hpp"
 
 #include "../../../dependencies/hash/hash.hpp"
-#include "../../../dependencies/xor/xor.hpp"
+
 #include "../../cheat.hpp"
 
 void math::angle_to_vector( const sdk::vector& angle, sdk::vector* forward, sdk::vector* right, sdk::vector* up )

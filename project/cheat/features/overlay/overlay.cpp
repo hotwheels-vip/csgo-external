@@ -16,7 +16,6 @@
 
 #include "../../../dependencies/hash/hash.hpp"
 #include "../../../dependencies/themida/include/ThemidaSDK.h"
-#include "../../../dependencies/xor/xor.hpp"
 
 void create_render_target( )
 {

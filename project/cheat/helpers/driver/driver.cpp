@@ -9,7 +9,6 @@
 
 #include "../../../dependencies/kdmapper/kdmapper.hpp"
 #include "../../../dependencies/themida/include/ThemidaSDK.h"
-#include "../../../dependencies/xor/xor.hpp"
 
 #include "../console/console.hpp"
 

@@ -12,7 +12,6 @@
 
 #include "../../../dependencies/hash/hash.hpp"
 #include "../../../dependencies/themida/include/ThemidaSDK.h"
-#include "../../../dependencies/xor/xor.hpp"
 
 #include "../../sdk/enums/flags.hpp"
 #include "../../sdk/enums/weapon_id.hpp"

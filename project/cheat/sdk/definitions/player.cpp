@@ -9,7 +9,7 @@
 #include "../enums/bones.hpp"
 
 #include "../../../dependencies/hash/hash.hpp"
-#include "../../../dependencies/xor/xor.hpp"
+
 #include "../../helpers/driver/driver.hpp"
 
 #include "../../../dependencies/themida/include/ThemidaSDK.h"
